@@ -1,0 +1,12 @@
+# Internal / not needed for the static build (Astro only needs src, public, config)
+.brain/
+.claude/
+.claude-flow/
+.swarm/
+openspec/
+design_handoff_nextgol_landing/
+01-MARKET-RESEARCH.md
+02-BUSINESS-MODEL.md
+03-LANDING-PAGE-SPEC.md
+CLAUDE.md
+*.db

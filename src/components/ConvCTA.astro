@@ -1,0 +1,48 @@
+---
+/**
+ * Persistent conversion affordances (BJ Fogg: the Prompt must always be present).
+ * - Mobile: a sticky bottom bar with the primary CTA — thumb-reachable, always
+ *   visible after the user scrolls past the hero. 83% of traffic is mobile.
+ * - Desktop: a floating WhatsApp button (low-friction channel for this audience).
+ *
+ * The WhatsApp affordances only render when a real number is configured, so we
+ * never ship a "WhatsApp" button that opens email.
+ */
+import { LINKS, type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<!-- Mobile sticky conversion bar (revealed after hero scroll) -->
+<div class="ng-convbar" data-conv-bar>
+  <a href={LINKS.booking} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-primary ng-convbar-cta">
+    <Icon name="calendar" size={18} stroke={2.2} />
+    <span>{t.hero.ctaPrimary}</span>
+  </a>
+  {LINKS.hasWhatsApp && (
+    <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-convbar-wa" aria-label="WhatsApp">
+      <Icon name="whatsapp" size={22} stroke={2} />
+    </a>
+  )}
+</div>
+
+<!-- Desktop floating WhatsApp button -->
+{LINKS.hasWhatsApp && (
+  <a
+    href={LINKS.whatsapp}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="ng-wa-fab"
+    data-conv-fab
+    aria-label={lang === "es" ? "Hablar por WhatsApp" : "Chat on WhatsApp"}
+  >
+    <Icon name="whatsapp" size={26} stroke={2} />
+  </a>
+)}

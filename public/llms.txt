@@ -1,0 +1,41 @@
+# NextGol
+
+> NextGol is your external technology team — bilingual (Spanish/English) senior
+> engineers who build, automate, and integrate the software a business needs to
+> grow, without the cost and overhead of hiring an in-house team. Nearshore
+> pricing, business-outcome focused, part of the TOP CoNNecT community.
+
+NextGol works with two kinds of clients: (1) business owners / SMBs who want to
+digitize, automate, and sell more, and (2) startup founders who need a product
+built or a dedicated engineering team without hiring and managing engineers.
+
+## What NextGol does
+
+- **AI Automation**: customer support, scheduling, lead follow-up, and reporting. Businesses typically cut operating costs by 40–60%.
+- **Custom Software & Cloud (AWS)**: web and mobile apps plus cloud infrastructure, end to end.
+- **Integrations & Payments**: connects existing tools and payment gateways, removing manual data entry.
+- **AI Team Training**: upskills client teams to multiply productivity.
+- **Tech Team for Startups**: dedicated engineers or a full turnkey product.
+
+## How engagements work
+
+Pricing is tailored to each project's scope — one-off projects and monthly
+retainers (ongoing support, dedicated team, fractional CTO). Every engagement
+starts with a free 30-minute diagnosis call to define scope, timeline, and price.
+
+## Key facts
+
+- Languages: Spanish and English (fully bilingual).
+- Model: external/turnkey technology department; nearshore pricing.
+- Differentiators: real senior engineering (backend, cloud, data, AI), business-outcome focus, close & bilingual communication, flexible scope.
+- Community: members of TOP CoNNecT.
+
+## Pages
+
+- [Spanish landing page](https://nextgol.com/): full overview in Spanish.
+- [English landing page](https://nextgol.com/en/): full overview in English.
+
+## Contact
+
+- Email: hola@nextgol.com
+- Primary action: book a free diagnosis call.

@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Astro build output & generated types
+dist/
+.astro/
+
+# Vercel
+.vercel/
+
+# Obsidian Knowledge Bridge — co-located brain repos
+.brain/
+
+# Claude-flow & swarm state
+.claude-flow/
+.swarm/
+ruvector.db
+
+# Secrets
+.env
+
+# Local agent / MCP config (may contain tokens) — never publish
+.mcp.json
+.claude/
+
+# Internal planning, strategy & design handoff — not part of the deployable app
+01-MARKET-RESEARCH.md
+02-BUSINESS-MODEL.md
+03-LANDING-PAGE-SPEC.md
+design_handoff_nextgol_landing/
+openspec/
+
+# Claude Code local memory
+.claude/memory.db*
+
+# macOS
+.DS_Store

@@ -1,0 +1,106 @@
+---
+import { CONFIG, type Lang } from "../config";
+import { copy } from "../content/copy";
+import StructuredData from "../components/StructuredData.astro";
+import "../styles/global.css";
+
+interface Props {
+  lang: Lang;
+  /** Path of THIS page, e.g. "/" or "/en/". Drives canonical + hreflang. */
+  path: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang, path } = Astro.props;
+const t = copy[lang];
+const title = Astro.props.title ?? t.meta.title;
+const description = Astro.props.description ?? t.meta.description;
+
+const site = CONFIG.SITE_URL;
+const canonical = new URL(path, site).toString();
+const ogImage = new URL("/og-image.png", site).toString();
+
+// hreflang alternates — both locales + x-default (Spanish is the default root).
+const alternates = [
+  { hreflang: "es", href: new URL("/", site).toString() },
+  { hreflang: "en", href: new URL("/en/", site).toString() },
+  { hreflang: "x-default", href: new URL("/", site).toString() },
+];
+const ogLocale = lang === "es" ? "es_ES" : "en_US";
+const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
+---
+
+<!doctype html>
+<html lang={lang} data-lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0A0E14" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta property="og:site_name" content="NextGol" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={t.meta.ogAlt} />
+
+    <!-- Structured data (JSON-LD) -->
+    <StructuredData lang={lang} path={path} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#main-content" class="ng-skip-link">{lang === "es" ? "Saltar al contenido" : "Skip to content"}</a>
+    <slot />
+    <style is:global>
+      /* Skip link: hidden until keyboard-focused, then visible top-left. */
+      .ng-skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        padding: 10px 16px;
+        background: #00E5A0;
+        color: #06120D;
+        font-weight: 600;
+        border-radius: 10px;
+        text-decoration: none;
+        transform: translateY(-150%);
+        transition: transform 0.18s ease;
+      }
+      .ng-skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </body>
+</html>

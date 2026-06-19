@@ -1,0 +1,52 @@
+---
+import { type Lang } from "../config";
+import { copy } from "../content/copy";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="proceso" class="ng-section ng-section--deep">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.process.eyebrow}</span></div>
+      <h2 class="ng-h2">{t.process.title}</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+      {t.process.steps.map((step) => (
+        <div class="ng-step-card" style="position:relative;background:#11161F;border:1px solid #1A212C;border-radius:16px;padding:30px 26px;">
+          <div class="ng-step-num" aria-hidden="true">{step.n}</div>
+          <h3 style="font-family:var(--font-display);font-weight:600;font-size:19px;margin:16px 0 8px;">{step.t}</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#A7B0BE;">{step.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ng-step-card {
+    transition: transform 0.2s var(--ease-out), border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ng-step-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 160, 0.4);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.46), 0 0 26px rgba(0, 229, 160, 0.12);
+  }
+  .ng-step-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 1;
+    background: linear-gradient(120deg, #00e5a0, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+</style>

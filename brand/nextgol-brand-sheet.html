@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NextGol — Brand Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg-900:#0A0E14; --bg-800:#11161F; --bg-700:#1A212C;
+    --text-100:#F5F7FA; --text-300:#A7B0BE; --text-muted:#7B8593;
+    --brand-400:#3DF0B8; --brand-500:#00E5A0; --brand-600:#00B37E;
+    --blue:#3B82F6; --on-brand:#06120D;
+    --grad:linear-gradient(135deg,#00E5A0,#3B82F6);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg-900);color:var(--text-100);
+    font-family:"Inter",system-ui,sans-serif;line-height:1.6;padding:48px 32px}
+  .wrap{max-width:980px;margin:0 auto}
+  h1{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand-500);margin:0 0 4px}
+  .sub{color:var(--text-300);margin:0 0 40px;font-size:15px}
+  h2{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:15px;color:var(--text-300);
+    margin:40px 0 16px;border-top:1px solid var(--bg-700);padding-top:24px}
+  .row{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+  .card{background:var(--bg-800);border:1px solid var(--bg-700);border-radius:16px;padding:24px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;min-width:150px}
+  .card.light{background:#F5F7FA}
+  .cap{font-size:12px;color:var(--text-muted)}
+  .card.light .cap{color:#5F5E5A}
+  .wordmark{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.01em}
+  .swatch{width:104px;border-radius:12px;overflow:hidden;border:1px solid var(--bg-700)}
+  .swatch .chip{height:60px}
+  .swatch .meta{padding:8px 10px;background:var(--bg-800);font-size:11px}
+  .swatch .meta b{display:block;font-weight:600;font-size:12px;color:var(--text-100)}
+  .swatch .meta span{color:var(--text-muted);font-family:ui-monospace,Menlo,monospace}
+  .tag{display:inline-block;font-size:11px;font-weight:600;color:var(--brand-500)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NextGol — Identidad de marca</h1>
+  <p class="sub">Tu próximo gol, nuestro código. · Your next goal. Built.</p>
+
+  <h2>Logo principal (lockup)</h2>
+  <div class="row">
+    <div class="card" style="min-width:340px;align-items:flex-start">
+      <div class="row" style="gap:14px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:15px;background:var(--grad)">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="#06120D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/>
+            <circle cx="21" cy="4" r="2.4" fill="#06120D" stroke="none"/>
+          </svg>
+        </span>
+        <span class="wordmark" style="font-size:34px"><span style="color:var(--text-100)">Next</span><span style="color:var(--brand-500)">Gol</span></span>
+      </div>
+      <span class="cap">Concepto: la “N” asciende a un punto-balón = la próxima meta.</span>
+    </div>
+  </div>
+
+  <h2>El logomark</h2>
+  <div class="row">
+    <div class="card">
+      <span style="display:inline-flex;width:72px;height:72px;border-radius:20px;background:var(--grad);align-items:center;justify-content:center">
+        <svg width="42" height="42" viewBox="0 0 32 32" fill="none" stroke="#06120D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/>
+          <circle cx="21" cy="4" r="2.4" fill="#06120D" stroke="none"/>
+        </svg>
+      </span>
+      <span class="cap">Gradiente (default)</span>
+    </div>
+    <div class="card light">
+      <span style="display:inline-flex;width:72px;height:72px;border-radius:20px;background:var(--grad);align-items:center;justify-content:center">
+        <svg width="42" height="42" viewBox="0 0 32 32" fill="none" stroke="#06120D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/>
+          <circle cx="21" cy="4" r="2.4" fill="#06120D" stroke="none"/>
+        </svg>
+      </span>
+      <span class="cap">Sobre fondo claro</span>
+    </div>
+    <div class="card">
+      <span style="display:inline-flex;width:72px;height:72px;border-radius:20px;border:2px solid var(--text-100);align-items:center;justify-content:center">
+        <svg width="42" height="42" viewBox="0 0 32 32" fill="none" stroke="#F5F7FA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/>
+          <circle cx="21" cy="4" r="2.4" fill="#F5F7FA" stroke="none"/>
+        </svg>
+      </span>
+      <span class="cap">Mono (1 color)</span>
+    </div>
+    <div class="card">
+      <div class="row" style="gap:14px;align-items:flex-end">
+        <span style="display:inline-flex;width:36px;height:36px;border-radius:10px;background:var(--grad);align-items:center;justify-content:center">
+          <svg width="21" height="21" viewBox="0 0 32 32" fill="none" stroke="#06120D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/><circle cx="21" cy="4" r="2.4" fill="#06120D" stroke="none"/></svg>
+        </span>
+        <span style="display:inline-flex;width:18px;height:18px;border-radius:5px;background:var(--grad);align-items:center;justify-content:center">
+          <svg width="11" height="11" viewBox="0 0 32 32" fill="none" stroke="#06120D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 23V9"/><path d="M10 9 21 23"/><path d="M21 23V8"/><circle cx="21" cy="4" r="2.6" fill="#06120D" stroke="none"/></svg>
+        </span>
+      </div>
+      <span class="cap">Favicon 36 · 18 px</span>
+    </div>
+  </div>
+
+  <h2>Paleta</h2>
+  <div class="row">
+    <div class="swatch"><div class="chip" style="background:#00E5A0"></div><div class="meta"><b>Brand 500</b><span>#00E5A0</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#3DF0B8"></div><div class="meta"><b>Brand 400</b><span>#3DF0B8</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#00B37E"></div><div class="meta"><b>Brand 600</b><span>#00B37E</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#3B82F6"></div><div class="meta"><b>Accent blue</b><span>#3B82F6</span></div></div>
+    <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#00E5A0,#3B82F6)"></div><div class="meta"><b>Gradient</b><span>135°</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#0A0E14"></div><div class="meta"><b>BG 900</b><span>#0A0E14</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#06120D"></div><div class="meta"><b>On-brand</b><span>#06120D</span></div></div>
+  </div>
+
+  <h2>Tipografía</h2>
+  <div class="row">
+    <div class="card" style="align-items:flex-start;min-width:280px">
+      <span class="wordmark" style="font-size:30px">Space Grotesk <span class="tag">· títulos / wordmark</span></span>
+      <span style="font-family:'Inter',sans-serif;font-size:18px;color:var(--text-300)">Inter — cuerpo de texto, 400 / 500 / 600</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

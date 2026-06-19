@@ -1,0 +1,95 @@
+---
+/**
+ * JSON-LD structured data (schema.org) — the machine-readable layer that lets
+ * Google build rich results and lets LLMs (Claude, Perplexity, ChatGPT) extract
+ * NextGol as an entity with concrete facts. Localized per page.
+ */
+import { CONFIG, type Lang } from "../config";
+import { copy } from "../content/copy";
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = copy[lang];
+const site = CONFIG.SITE_URL;
+const pageUrl = new URL(path, site).toString();
+const logo = new URL("/favicon.svg", site).toString();
+
+const orgId = `${site}/#organization`;
+const siteId = `${site}/#website`;
+
+// Services as a valid OfferCatalog (serviceType is NOT a property of
+// ProfessionalService — it belongs to Service, so Google ignores it there).
+const serviceNames = [
+  "AI automation",
+  "Custom software development",
+  "Cloud infrastructure (AWS)",
+  "Integrations & payments",
+  "AI team training",
+  "Dedicated engineering team",
+];
+
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "Organization",
+    "@id": orgId,
+    name: "NextGol",
+    url: site,
+    logo,
+    image: new URL("/og-image.png", site).toString(),
+    description: t.meta.description,
+    email: CONFIG.EMAIL,
+    knowsLanguage: ["es", "en"],
+    areaServed: ["US", "Latin America"],
+    slogan:
+      lang === "es"
+        ? "Tu equipo de tecnología, sin tener que contratarlo."
+        : "Your tech team, without the hire.",
+  },
+  {
+    "@type": "WebSite",
+    "@id": siteId,
+    url: site,
+    name: "NextGol",
+    inLanguage: lang,
+    description: t.meta.description,
+    publisher: { "@id": orgId },
+  },
+  {
+    "@type": "ProfessionalService",
+    "@id": `${site}/#service`,
+    name: "NextGol",
+    url: pageUrl,
+    image: new URL("/og-image.png", site).toString(),
+    description: t.meta.description,
+    provider: { "@id": orgId },
+    areaServed: ["US", "Latin America"],
+    availableLanguage: ["Spanish", "English"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "NextGol services",
+      itemListElement: serviceNames.map((name) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name },
+      })),
+    },
+  },
+  {
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    inLanguage: lang,
+    mainEntity: t.faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+];
+
+const jsonLd = { "@context": "https://schema.org", "@graph": graph };
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

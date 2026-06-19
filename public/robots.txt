@@ -1,0 +1,6 @@
+# NextGol — https://nextgol.com
+# Search crawlers and AI/LLM crawlers are welcome.
+User-agent: *
+Allow: /
+
+Sitemap: https://nextgol.com/sitemap-index.xml

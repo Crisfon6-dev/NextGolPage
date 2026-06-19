@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="72" viewBox="0 0 300 72" role="img" aria-label="NextGol">
+  <defs>
+    <linearGradient id="ngLock" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00E5A0" />
+      <stop offset="1" stop-color="#3B82F6" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(4 20)">
+    <rect width="32" height="32" rx="9" fill="url(#ngLock)" />
+    <g fill="none" stroke="#06120D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 23V9" />
+      <path d="M10 9 21 23" />
+      <path d="M21 23V8" />
+    </g>
+    <circle cx="21" cy="4" r="2.4" fill="#06120D" />
+  </g>
+  <text x="48" y="46" font-family="'Space Grotesk', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="30" letter-spacing="-0.01em">
+    <tspan fill="#F5F7FA">Next</tspan><tspan fill="#00E5A0">Gol</tspan>
+  </text>
+</svg>

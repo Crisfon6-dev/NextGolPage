@@ -1,0 +1,45 @@
+---
+/**
+ * Social proof — the single highest-leverage conversion element (Availability
+ * Heuristic + Bandwagon/Social Proof). Renders ONLY when real testimonials are
+ * added to TESTIMONIALS in config.ts. Fabricated testimonials are dishonest and
+ * legally risky, so this is empty until the client provides real quotes.
+ */
+import { TESTIMONIALS, type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+const hasTestimonials = TESTIMONIALS.length > 0;
+---
+
+{hasTestimonials && (
+  <section id="testimonios" class="ng-section ng-section--deep">
+    <div class="ng-container">
+      <div class="reveal ng-section-head">
+        <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.social.eyebrow}</span></div>
+        <h2 class="ng-h2" style="margin-bottom:14px;">{t.social.title}</h2>
+        <p style="margin:0;color:#A7B0BE;font-size:17px;line-height:1.6;">{t.social.subtitle}</p>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;">
+        {TESTIMONIALS.map((tt) => (
+          <figure class="ng-quote">
+            <Icon name="message" size={22} stroke={1.8} class="ng-quote-icon" />
+            <blockquote style="margin:14px 0 0;font-size:16px;line-height:1.6;color:#F5F7FA;">
+              {tt.quote[lang]}
+            </blockquote>
+            <figcaption style="margin-top:18px;font-size:13.5px;color:#A7B0BE;">
+              <strong style="color:#F5F7FA;font-weight:600;">{tt.author}</strong> · {tt.role[lang]}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

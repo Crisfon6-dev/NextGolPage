@@ -1,0 +1,39 @@
+---
+/**
+ * FAQ accordion using native <details>/<summary>: fully accessible (keyboard +
+ * screen reader), works without JS, and the answers stay in the DOM even when
+ * collapsed — so crawlers and LLMs read every answer. Drives FAQPage JSON-LD.
+ */
+import { type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="faq" class="ng-section">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.faq.eyebrow}</span></div>
+      <h2 class="ng-h2" style="margin-bottom:14px;">{t.faq.title}</h2>
+      <p style="margin:0;color:#A7B0BE;font-size:17px;line-height:1.6;">{t.faq.subtitle}</p>
+    </div>
+
+    <div class="reveal ng-faq">
+      {t.faq.items.map((item) => (
+        <details class="ng-faq-item">
+          <summary class="ng-faq-q">
+            <span>{item.q}</span>
+            <Icon name="plus" size={20} stroke={2.2} class="ng-faq-icon" />
+          </summary>
+          <p class="ng-faq-a">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

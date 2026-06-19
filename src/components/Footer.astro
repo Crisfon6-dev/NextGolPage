@@ -1,0 +1,63 @@
+---
+import { CONFIG, LINKS, type Lang } from "../config";
+import { copy } from "../content/copy";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+
+const navLinks = [
+  { href: "#servicios", label: t.nav.services },
+  { href: "#paraquien", label: t.nav.who },
+  { href: "#proceso", label: t.nav.process },
+  { href: "#faq", label: t.nav.faq },
+];
+---
+
+<footer style="background:#0C1118;">
+  <div style="max-width:1180px;margin:0 auto;padding:56px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;">
+    <div style="max-width:260px;">
+      <span style="font-family:var(--font-display);font-weight:700;font-size:21px;">Next<span style="color:#00E5A0;">Gol</span></span>
+      <p style="margin:14px 0 0;font-size:14px;color:#939CAA;line-height:1.6;">{t.footer.tagline}</p>
+    </div>
+
+    <nav aria-label={t.footer.navTitle}>
+      <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#939CAA;margin-bottom:14px;">{t.footer.navTitle}</div>
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        {navLinks.map((l) => <a href={l.href} class="ng-foot-link">{l.label}</a>)}
+      </div>
+    </nav>
+
+    <div>
+      <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#939CAA;margin-bottom:14px;">{t.footer.contactTitle}</div>
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <a href={`mailto:${CONFIG.EMAIL}`} class="ng-foot-link">{CONFIG.EMAIL}</a>
+        <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-foot-link">WhatsApp</a>
+        <a href={LINKS.booking} target="_blank" rel="noopener noreferrer" style="font-size:14px;color:#00E5A0;text-decoration:none;">{t.nav.cta}</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1180px;margin:40px auto 0;padding:18px 24px;border-top:1px solid #161C25;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#939CAA;">
+    <span>{t.footer.legal}</span>
+    <span style="display:inline-flex;align-items:center;gap:7px;">
+      <span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:#00E5A0;box-shadow:0 0 8px #00E5A0;"></span>
+      <span>{t.footer.community}</span>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .ng-foot-link {
+    font-size: 14px;
+    color: #a7b0be;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .ng-foot-link:hover {
+    color: #00e5a0;
+  }
+</style>

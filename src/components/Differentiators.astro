@@ -1,0 +1,51 @@
+---
+import { type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+
+const items = [
+  { key: "d1", icon: "code" },
+  { key: "d2", icon: "chart" },
+  { key: "d3", icon: "message" },
+  { key: "d4", icon: "shield" },
+] as const;
+---
+
+<section class="ng-section">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.diff.eyebrow}</span></div>
+      <h2 class="ng-h2">{t.diff.title}</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
+      {items.map((it) => (
+        <div class="ng-diff-card" style="background:#11161F;border:1px solid #1A212C;border-radius:16px;padding:26px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:rgba(0,229,160,.1);color:#00E5A0;margin-bottom:16px;">
+            <Icon name={it.icon} size={22} stroke={1.7} />
+          </span>
+          <h3 style="font-family:var(--font-display);font-weight:600;font-size:18px;margin:0 0 8px;">{t.diff[it.key].title}</h3>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#A7B0BE;">{t.diff[it.key].text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ng-diff-card {
+    transition: transform 0.2s var(--ease-out), border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ng-diff-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 160, 0.4);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.46), 0 0 26px rgba(0, 229, 160, 0.12);
+  }
+</style>
