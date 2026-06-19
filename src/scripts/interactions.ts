@@ -101,6 +101,19 @@ function initConvBar(): void {
   observer.observe(hero);
 }
 
+/* ---------------- Email de-obfuscation ---------------- */
+
+function initEmailLinks(): void {
+  document.querySelectorAll<HTMLAnchorElement>("[data-email-b64]").forEach((el) => {
+    try {
+      const email = atob(el.getAttribute("data-email-b64") || "");
+      if (email) el.href = `mailto:${email}`;
+    } catch {
+      /* malformed — leave as-is */
+    }
+  });
+}
+
 /* ---------------- Wire up ---------------- */
 
 function init(): void {
@@ -115,6 +128,7 @@ function init(): void {
   initTilt();
   initReveals();
   initConvBar();
+  initEmailLinks();
 }
 
 if (document.readyState === "loading") {

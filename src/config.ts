@@ -9,9 +9,9 @@ export type Lang = "es" | "en";
  *   - EMAIL         → confirmar dirección de contacto
  */
 export const CONFIG = {
-  CALENDLY_URL: "https://calendly.com/PENDIENTE",
+  CALENDLY_URL: "https://calendly.com/crisfon6/15min",
   WHATSAPP_URL: "https://wa.me/573219265622",
-  EMAIL: "hola@nextgol.com",
+  EMAIL: "disruptivecrisfon6@gmail.com",
   DEFAULT_LANG: "es" as Lang,
   SITE_URL: "https://nextgol.com",
 } as const;
@@ -24,11 +24,21 @@ export const CONFIG = {
  */
 const isPlaceholder = (u: string) => u.includes("PENDIENTE");
 
+const hasCalendly = !isPlaceholder(CONFIG.CALENDLY_URL);
+const hasWhatsApp = !isPlaceholder(CONFIG.WHATSAPP_URL);
+
 export const LINKS = {
-  booking: isPlaceholder(CONFIG.CALENDLY_URL) ? `mailto:${CONFIG.EMAIL}` : CONFIG.CALENDLY_URL,
-  whatsapp: isPlaceholder(CONFIG.WHATSAPP_URL) ? `mailto:${CONFIG.EMAIL}` : CONFIG.WHATSAPP_URL,
-  hasCalendly: !isPlaceholder(CONFIG.CALENDLY_URL),
-  hasWhatsApp: !isPlaceholder(CONFIG.WHATSAPP_URL),
+  // Booking CTA fallback chain: real Calendly → WhatsApp (working channel) →
+  // email as last resort. Keeps "Agendar llamada" pointing at a live channel
+  // instead of a cold mailto while Calendly is still PENDIENTE.
+  booking: hasCalendly
+    ? CONFIG.CALENDLY_URL
+    : hasWhatsApp
+      ? CONFIG.WHATSAPP_URL
+      : `mailto:${CONFIG.EMAIL}`,
+  whatsapp: hasWhatsApp ? CONFIG.WHATSAPP_URL : `mailto:${CONFIG.EMAIL}`,
+  hasCalendly,
+  hasWhatsApp,
 } as const;
 
 /**

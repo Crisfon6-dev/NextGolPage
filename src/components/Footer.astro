@@ -9,6 +9,12 @@ interface Props {
 const { lang } = Astro.props;
 const t = copy[lang];
 
+// Obfuscate the contact email: ship only a base64 blob (not a regex-matchable
+// address), then assemble the mailto in JS. Keeps the personal address out of
+// the raw HTML so spam scrapers don't harvest it.
+const writeUs = lang === "es" ? "Escribinos" : "Email us";
+const emailB64 = Buffer.from(CONFIG.EMAIL).toString("base64");
+
 const navLinks = [
   { href: "#servicios", label: t.nav.services },
   { href: "#paraquien", label: t.nav.who },
@@ -34,7 +40,7 @@ const navLinks = [
     <div>
       <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#939CAA;margin-bottom:14px;">{t.footer.contactTitle}</div>
       <div style="display:flex;flex-direction:column;gap:11px;">
-        <a href={`mailto:${CONFIG.EMAIL}`} class="ng-foot-link">{CONFIG.EMAIL}</a>
+        <a href="#" class="ng-foot-link" data-email-b64={emailB64} rel="nofollow">{writeUs}</a>
         <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-foot-link">WhatsApp</a>
         <a href={LINKS.booking} target="_blank" rel="noopener noreferrer" style="font-size:14px;color:#00E5A0;text-decoration:none;">{t.nav.cta}</a>
       </div>

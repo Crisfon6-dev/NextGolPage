@@ -175,11 +175,11 @@ export const copy: Record<Lang, Copy> = {
         },
         {
           q: "¿Cómo empezamos?",
-          a: "Agenda una llamada de diagnóstico gratuita de 30 minutos. Entendemos tu reto, te damos una propuesta a tu medida y, si avanzamos, construimos y te acompañamos para escalar. Sin compromiso.",
+          a: "Agenda una llamada de diagnóstico gratuita de 15 minutos. Entendemos tu reto, te damos una propuesta a tu medida y, si avanzamos, construimos y te acompañamos para escalar. Sin compromiso.",
         },
       ],
     },
-    ctaNote: "Gratis · 30 min · Sin compromiso",
+    ctaNote: "Gratis · 15 min · Sin compromiso",
     social: {
       eyebrow: "Lo que dicen",
       title: "Negocios que ya dieron el salto",
@@ -188,7 +188,7 @@ export const copy: Record<Lang, Copy> = {
     final: {
       title: "¿Listo para tu próximo gol?",
       subtitle:
-        "Agenda una llamada gratis de 30 minutos. Te diremos exactamente cómo la tecnología puede hacer crecer tu negocio.",
+        "Agenda una llamada gratis de 15 minutos. Te diremos exactamente cómo la tecnología puede hacer crecer tu negocio.",
       ctaPrimary: "Agendar llamada gratis",
       ctaSecondary: "Escríbenos por WhatsApp",
     },
@@ -296,11 +296,11 @@ export const copy: Record<Lang, Copy> = {
         },
         {
           q: "How do we get started?",
-          a: "Book a free 30-minute diagnosis call. We understand your challenge, give you a tailored proposal, and if we move forward, we build and stick around to help you scale. No strings attached.",
+          a: "Book a free 15-minute diagnosis call. We understand your challenge, give you a tailored proposal, and if we move forward, we build and stick around to help you scale. No strings attached.",
         },
       ],
     },
-    ctaNote: "Free · 30 min · No commitment",
+    ctaNote: "Free · 15 min · No commitment",
     social: {
       eyebrow: "What they say",
       title: "Businesses that already made the leap",
@@ -309,7 +309,7 @@ export const copy: Record<Lang, Copy> = {
     final: {
       title: "Ready for your next goal?",
       subtitle:
-        "Book a free 30-minute call. We'll tell you exactly how tech can grow your business.",
+        "Book a free 15-minute call. We'll tell you exactly how tech can grow your business.",
       ctaPrimary: "Book a free call",
       ctaSecondary: "Message us on WhatsApp",
     },
