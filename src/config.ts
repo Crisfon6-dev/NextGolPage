@@ -6,7 +6,6 @@ export type Lang = "es" | "en";
  * Pendientes de Cristhian (ver openspec/changes/nextgol-topconnect-mapa/tasks.md, grupo 0):
  *   - LINKEDIN_URL      → vacío: los links a LinkedIn se ocultan hasta que haya URL
  *   - CALENDLY_URL      → evento de 30 min
- *   - UMAMI_WEBSITE_ID  → vacío: Base.astro no emite el script de analytics
  */
 export const CONFIG = {
   // TODO(0.2): swap to the 30-min event URL (calendly.com/crisfon6/30min once it exists).
@@ -16,8 +15,6 @@ export const CONFIG = {
   LINKEDIN_URL: "",
   INSTAGRAM_URL: "https://instagram.com/nextgol.tech",
   EMAIL: "disruptivecrisfon6@gmail.com",
-  // Pending (0.7). Empty = no analytics script.
-  UMAMI_WEBSITE_ID: "",
   DEFAULT_LANG: "es" as Lang,
   SITE_URL: "https://nextgol.com",
 } as const;
