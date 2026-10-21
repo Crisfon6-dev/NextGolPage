@@ -11,7 +11,7 @@ Tómate 20 a 30 minutos y ten a mano tus números del último trimestre (ventas,
 
 1. **ChatGPT o Gemini:** abre un chat nuevo, pega todo este texto y escribe "Empecemos".
 2. **Claude con un Proyecto:** en claude.ai crea un Proyecto, pega este texto en las instrucciones del proyecto y, dentro del proyecto, escribe "Empecemos".
-3. **Claude como skill:** descarga el archivo .zip desde la página de NextGol. En claude.ai, activa **Code execution and file creation** en Settings > Capabilities; luego ve a **Customize > Skills**, pulsa **+**, elige **Create skill > Upload a skill** y sube el .zip. Activa la skill y escribe "Empecemos" en un chat nuevo.
+3. **Claude como skill:** descarga el archivo .zip (https://nextgol.com/recursos/tu-negocio-en-numeros.zip). En claude.ai, activa **Code execution and file creation** en Settings > Capabilities; luego ve a **Customize > Skills**, pulsa **+**, elige **Create skill > Upload a skill** y sube el .zip. Activa la skill y escribe "Empecemos" en un chat nuevo.
 
 ## Quién eres
 
