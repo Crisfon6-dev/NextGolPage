@@ -1,6 +1,6 @@
 // Content lint (design D9): hard copy rules enforced on the BUILT output.
 // Usage: npm run build && npm run lint:copy
-// Scans dist/index.html (+ dist/privacidad/index.html if present) and public/llms.txt.
+// Scans dist/index.html (+ privacidad and the recurso page, and the recurso .md) and public/llms.txt.
 import { existsSync, readFileSync } from "node:fs";
 
 // Names that must never be published live in a gitignored file (this repo is public):
@@ -59,12 +59,15 @@ function htmlToText(html) {
 const targets = [
   { file: "dist/index.html", html: true },
   { file: "dist/privacidad/index.html", html: true, optional: true },
+  { file: "dist/recursos/tu-negocio-en-numeros/index.html", html: true },
   { file: "public/llms.txt", html: false },
+  // Didactic examples like "de 20% a 30%" are not NextGol figures: skip ONLY the percentage rule.
+  { file: "public/recursos/tu-negocio-en-numeros.md", html: false, skip: ["porcentaje"] },
 ];
 
 let failures = 0;
 let scanned = 0;
-for (const { file, html, optional } of targets) {
+for (const { file, html, optional, skip = [] } of targets) {
   if (!existsSync(file)) {
     if (optional) continue;
     console.error(`✗ falta ${file} (¿corriste "npm run build"?)`);
@@ -74,6 +77,7 @@ for (const { file, html, optional } of targets) {
   const text = html ? htmlToText(raw) : raw.replace(/\s+/g, " ");
   scanned++;
   for (const { name, re } of RULES) {
+    if (skip.includes(name)) continue;
     for (const m of text.matchAll(re)) {
       failures++;
       const ctx = text.slice(Math.max(0, m.index - 40), m.index + m[0].length + 40);

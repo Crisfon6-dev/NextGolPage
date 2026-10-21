@@ -142,10 +142,11 @@ function resolveSource(): Source {
 
 const source = resolveSource();
 
-/** Every WhatsApp CTA carries the source inside the pre-filled message. */
+/** Every WhatsApp CTA carries the source inside the pre-filled message
+ *  (except those with a fixed, hand-written message: data-wa-fixed). */
 function initWhatsAppLinks(): void {
   const href = waLink(source);
-  document.querySelectorAll<HTMLAnchorElement>('[data-cta="whatsapp"]').forEach((a) => {
+  document.querySelectorAll<HTMLAnchorElement>('[data-cta="whatsapp"]:not([data-wa-fixed])').forEach((a) => {
     a.href = href;
   });
 }

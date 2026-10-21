@@ -1,6 +1,6 @@
 /**
- * Generates the 1200×630 Open Graph image (public/og-image.png) from an inline
- * SVG, rasterized with sharp. Run once (or whenever the brand/copy changes):
+ * Generates the 1200×630 Open Graph images (public/og-image.png and
+ * public/og-recurso-okr.png) from inline SVG, rasterized with sharp. Run once (or whenever the brand/copy changes):
  *
  *   node scripts/gen-og.mjs
  *
@@ -13,8 +13,9 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const out = resolve(__dirname, "../public/og-image.png");
+const outRecurso = resolve(__dirname, "../public/og-recurso-okr.png");
 
-const svg = `
+const head = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
@@ -50,7 +51,9 @@ const svg = `
     <tspan fill="#F5F7FA">Next</tspan><tspan fill="#00E5A0">Gol</tspan>
   </text>
 
-  <!-- headline -->
+`;
+
+const svg = `${head}  <!-- headline -->
   <text font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="92" font-weight="700" letter-spacing="-2.5" fill="#F5F7FA">
     <tspan x="80" y="262">Agentes de IA</tspan>
     <tspan x="80" y="356">para tu negocio</tspan>
@@ -74,5 +77,34 @@ const svg = `
 </svg>
 `;
 
+
+const FONT = "Helvetica Neue, Helvetica, Arial, sans-serif";
+const svgRecurso = `${head}
+  <!-- headline -->
+  <text font-family="${FONT}" font-size="92" font-weight="700" letter-spacing="-2.5" fill="#F5F7FA">
+    <tspan x="80" y="262">Tu negocio en números</tspan>
+  </text>
+  <text x="80" y="352" font-family="${FONT}" font-size="64" font-weight="700" letter-spacing="-1.5" fill="url(#brand)">OKR y KPI con IA</text>
+
+  <!-- subtitle -->
+  <text font-family="${FONT}" font-size="32" font-weight="400" fill="#A7B0BE">
+    <tspan x="82" y="426">Guía gratis para dueños de negocio.</tspan>
+    <tspan x="82" y="470">Úsala en ChatGPT, Claude o Gemini.</tspan>
+  </text>
+
+  <!-- CTA pill + community -->
+  <g transform="translate(80,516)">
+    <rect width="330" height="64" rx="32" fill="url(#brand)"/>
+    <text x="165" y="42" text-anchor="middle" font-family="${FONT}" font-size="28" font-weight="700" fill="#06120D">Descárgala gratis</text>
+  </g>
+  <g transform="translate(446,516)">
+    <circle cx="12" cy="32" r="6" fill="#00E5A0"/>
+    <text x="30" y="41" font-family="${FONT}" font-size="26" font-weight="600" fill="#A7B0BE">NextGol · Miembro de TopConnect</text>
+  </g>
+</svg>
+`;
+
 await sharp(Buffer.from(svg)).png().toFile(out);
 console.log("Wrote", out);
+await sharp(Buffer.from(svgRecurso)).png().toFile(outRecurso);
+console.log("Wrote", outRecurso);
