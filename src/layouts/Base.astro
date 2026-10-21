@@ -10,6 +10,10 @@ interface Props {
   path: string;
   title?: string;
   description?: string;
+  /** Path of the share image (1200×630). Defaults to the home image. */
+  ogImage?: string;
+  /** Alt text for the share image. Defaults to the home image alt. */
+  ogAlt?: string;
 }
 
 const { lang, path } = Astro.props;
@@ -19,7 +23,8 @@ const description = Astro.props.description ?? t.meta.description;
 
 const site = CONFIG.SITE_URL;
 const canonical = new URL(path, site).toString();
-const ogImage = new URL("/og-image.png", site).toString();
+const ogImage = new URL(Astro.props.ogImage ?? "/og-image.png", site).toString();
+const ogAlt = Astro.props.ogAlt ?? t.meta.ogAlt;
 
 // Phase 1 is Spanish-only: no hreflang alternates (canonical is enough).
 const ogLocale = "es_US";
@@ -49,7 +54,7 @@ const ogLocale = "es_US";
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta property="og:image:alt" content={ogAlt} />
     <meta property="og:site_name" content="NextGol" />
     <meta property="og:locale" content={ogLocale} />
 
@@ -58,12 +63,12 @@ const ogLocale = "es_US";
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={t.meta.ogAlt} />
+    <meta name="twitter:image:alt" content={ogAlt} />
 
     <!-- Structured data (JSON-LD) -->
     <StructuredData lang={lang} path={path} />
 
-    <!-- Analytics: Vercel Web Analytics (cookieless, page views + UTM). Same-origin script
+    <!-- Analytics: Vercel Web Analytics (cookieless page views). Same-origin script
          served by Vercel once Analytics is enabled for the project; 404s harmlessly before. -->
     <script defer src="/_vercel/insights/script.js" is:inline></script>
 

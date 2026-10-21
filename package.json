@@ -9,7 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint:copy": "node scripts/lint-copy.mjs"
+    "lint:copy": "node scripts/lint-copy.mjs",
+    "gen:recursos": "node scripts/gen-recursos.mjs",
+    "gen:qr": "node scripts/gen-qr.mjs"
   },
   "dependencies": {
     "astro": "^5.7.0"
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.1.0",
+    "qrcode": "^1.5.4",
     "sharp": "^0.35.1",
     "tailwindcss": "^4.1.0"
   }

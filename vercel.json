@@ -1,5 +1,7 @@
 {
   "redirects": [
+    { "source": "/r/okr", "destination": "/recursos/tu-negocio-en-numeros?utm_source=qr&utm_medium=evento&utm_campaign=topconnect", "statusCode": 301 },
+    { "source": "/r/okr/", "destination": "/recursos/tu-negocio-en-numeros?utm_source=qr&utm_medium=evento&utm_campaign=topconnect", "statusCode": 301 },
     { "source": "/en", "destination": "/", "permanent": false },
     { "source": "/en/", "destination": "/", "permanent": false },
     { "source": "/en/:path*", "destination": "/", "permanent": false }

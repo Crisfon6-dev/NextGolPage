@@ -1,0 +1,166 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import Icon from "../../components/Icon.astro";
+
+// Fixed, hand-written message: this link is NOT rewritten by utm_source (data-wa-fixed).
+const WA_MAPA =
+  "https://wa.me/573219265622?text=Hola%20Cristhian%2C%20vengo%20de%20TopConnect.%20Quiero%20mi%20MAPA";
+---
+
+<Base
+  lang="es"
+  path="/recursos/tu-negocio-en-numeros/"
+  title="Tu negocio en números: OKR y KPI con IA | Guía gratis de NextGol"
+  description="Guía gratis para dueños de negocio: entiende tu modelo, define tus OKR y KPI y descubre dónde te ayudaría la IA. Úsala en ChatGPT, Claude o Gemini."
+  ogImage="/og-recurso-okr.png"
+  ogAlt="Tu negocio en números: OKR y KPI con IA. Guía gratis de NextGol para usar en ChatGPT, Claude o Gemini."
+>
+  <Nav lang="es" />
+  <main id="main-content" class="ng-section" style="border-bottom:0;">
+    <div class="ng-container">
+      <article class="ng-recurso">
+        <div class="ng-eyebrow">Recurso gratis</div>
+        <h1 class="ng-h2 ng-recurso-h1">Tu negocio en números: OKR y KPI con IA</h1>
+
+        <p class="ng-recurso-lead">
+          Una guía para usar con ChatGPT, Claude o Gemini como si tuvieras un consultor de negocio al lado.
+        </p>
+        <p class="ng-recurso-text">Para dueños de negocio que quieren saber qué medir y a dónde llevar su empresa.</p>
+        <p class="ng-recurso-text">Primero entiende tu negocio; la tecnología viene después.</p>
+
+        <div class="ng-recurso-actions" data-cta-row>
+          <a
+            href="/recursos/tu-negocio-en-numeros.md"
+            download="tu-negocio-en-numeros.md"
+            class="ng-btn ng-btn-primary"
+            data-cta="download_md"
+            data-cta-location="recurso"
+          >
+            Descargar la guía (.md)
+          </a>
+          <a
+            href="/recursos/tu-negocio-en-numeros.zip"
+            download
+            class="ng-btn ng-btn-ghost"
+            data-cta="download_zip"
+            data-cta-location="recurso"
+          >
+            Descargar como skill de Claude (.zip)
+          </a>
+        </div>
+        <p class="ng-cta-note">
+          <Icon name="check" size={14} stroke={2.4} />
+          Gratis. Sin registro.
+        </p>
+
+        <h2 class="ng-recurso-h2">Qué recibes</h2>
+        <ul class="ng-recurso-list">
+          <li>Tu modelo de negocio en una página, con fortalezas y riesgos.</li>
+          <li>Tus OKR del trimestre.</li>
+          <li>Tu tablero de KPI.</li>
+          <li>Dónde un agente de IA te ayudaría y dónde no.</li>
+          <li>Tus próximos 3 pasos.</li>
+        </ul>
+
+        <h2 class="ng-recurso-h2">Cómo usarlo</h2>
+        <p class="ng-recurso-text">Tómate 20 a 30 minutos y ten a mano tus números del último trimestre. Si no los tienes, igual funciona.</p>
+        <ol class="ng-recurso-list ng-recurso-steps">
+          <li><strong>ChatGPT o Gemini:</strong> abre un chat nuevo, pega todo el texto de la guía y escribe "Empecemos".</li>
+          <li>
+            <strong>Claude con un Proyecto:</strong> crea un Proyecto en claude.ai, pega el texto en sus instrucciones y escribe "Empecemos"
+            dentro del proyecto.
+          </li>
+          <li>
+            <strong>Claude como skill:</strong> descarga el .zip y súbelo en <strong>Customize &gt; Skills</strong>. Los pasos exactos están al
+            inicio de la guía.
+          </li>
+        </ol>
+
+        <section class="ng-recurso-cta" aria-labelledby="mapa-title">
+          <h2 id="mapa-title" class="ng-recurso-h2" style="margin-top:0;">¿Quieres llevarlo a la práctica?</h2>
+          <p class="ng-recurso-text">
+            Con el Mapa de tu primer agente de IA hacemos 30 minutos por videollamada y, en 48 horas, tienes tu plan escrito.
+          </p>
+          <div data-cta-row style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;">
+            <a
+              href={WA_MAPA}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ng-btn ng-btn-primary"
+              data-cta="whatsapp"
+              data-cta-location="recurso"
+              data-wa-fixed
+            >
+              <Icon name="whatsapp" size={18} stroke={2} />
+              <span>Escribe MAPA por WhatsApp</span>
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+  <Footer lang="es" />
+
+  <script>
+    import "../../scripts/interactions";
+  </script>
+</Base>
+
+<style is:global>
+  .ng-recurso {
+    max-width: 720px;
+    min-width: 0;
+  }
+  .ng-recurso-h1 {
+    font-size: clamp(30px, 7.5vw, 44px);
+    overflow-wrap: break-word;
+  }
+  .ng-recurso-lead {
+    margin: 20px 0 10px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #f5f7fa;
+  }
+  .ng-recurso-text {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #a7b0be;
+  }
+  .ng-recurso-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0 14px;
+  }
+  .ng-recurso-h2 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 44px 0 12px;
+    color: #f5f7fa;
+  }
+  .ng-recurso-list {
+    margin: 0 0 12px;
+    padding-left: 22px;
+  }
+  .ng-recurso-list li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #a7b0be;
+    margin-bottom: 8px;
+  }
+  .ng-recurso-list strong {
+    color: #f5f7fa;
+  }
+  .ng-recurso-cta {
+    margin-top: 48px;
+    padding: 24px;
+    background: #11161f;
+    border: 1px solid #1a212c;
+    border-radius: 16px;
+  }
+</style>
