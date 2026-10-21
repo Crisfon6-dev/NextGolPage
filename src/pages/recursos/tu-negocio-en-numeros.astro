@@ -4,6 +4,12 @@ import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import Icon from "../../components/Icon.astro";
 
+import guiaRaw from "../../content/recursos/tu-negocio-en-numeros.md?raw";
+
+// Text for the "Copiar el prompt" button: the guide without its YAML frontmatter
+// (the frontmatter only matters for the Claude skill zip).
+const promptText = guiaRaw.replace(/^---\n[\s\S]*?\n---\n+/, "");
+
 // Fixed, hand-written message: this link is NOT rewritten by utm_source (data-wa-fixed).
 const WA_MAPA =
   "https://wa.me/573219265622?text=Hola%20Cristhian%2C%20vengo%20de%20TopConnect.%20Quiero%20mi%20MAPA";
@@ -31,10 +37,18 @@ const WA_MAPA =
         <p class="ng-recurso-text">Primero entiende tu negocio; la tecnología viene después.</p>
 
         <div class="ng-recurso-actions" data-cta-row>
+          <button type="button" class="ng-btn ng-btn-primary" data-copy-prompt data-cta="copy_prompt" data-cta-location="recurso">
+            Copiar el prompt
+          </button>
+          <p class="ng-cta-note" data-copy-status aria-live="polite" hidden>
+            <Icon name="check" size={14} stroke={2.4} />
+            <span>¡Copiado! Pégalo en ChatGPT, Claude o Gemini y escribe "Empecemos".</span>
+          </p>
+          <script type="text/plain" id="guia-prompt" is:inline set:html={promptText} />
           <a
             href="/recursos/tu-negocio-en-numeros.md"
             download="tu-negocio-en-numeros.md"
-            class="ng-btn ng-btn-primary"
+            class="ng-btn ng-btn-ghost"
             data-cta="download_md"
             data-cta-location="recurso"
           >
@@ -67,14 +81,14 @@ const WA_MAPA =
         <h2 class="ng-recurso-h2">Cómo usarlo</h2>
         <p class="ng-recurso-text">Tómate 20 a 30 minutos y ten a mano tus números del último trimestre. Si no los tienes, igual funciona.</p>
         <ol class="ng-recurso-list ng-recurso-steps">
-          <li><strong>ChatGPT o Gemini:</strong> abre un chat nuevo, pega todo el texto de la guía y escribe "Empecemos".</li>
+          <li><strong>ChatGPT o Gemini:</strong> toca "Copiar el prompt", pégalo en un chat nuevo y escribe "Empecemos".</li>
           <li>
-            <strong>Claude con un Proyecto:</strong> crea un Proyecto en claude.ai, pega el texto en sus instrucciones y escribe "Empecemos"
+            <strong>Claude con un Proyecto:</strong> crea un Proyecto en claude.ai, pega el prompt en sus instrucciones y escribe "Empecemos"
             dentro del proyecto.
           </li>
           <li>
-            <strong>Claude como skill:</strong> descarga el .zip y súbelo en <strong>Customize &gt; Skills</strong>. Los pasos exactos están al
-            inicio de la guía.
+            <strong>Claude como skill:</strong> descarga el .zip y súbelo en <strong>Customize &gt; Skills</strong>. Los pasos exactos y el link
+            de descarga vienen al inicio del prompt.
           </li>
         </ol>
 
@@ -105,6 +119,46 @@ const WA_MAPA =
 
   <script>
     import "../../scripts/interactions";
+
+    /* "Copiar el prompt": Clipboard API, with a textarea fallback for older/in-app browsers. */
+    const btn = document.querySelector<HTMLButtonElement>("[data-copy-prompt]");
+    const status = document.querySelector<HTMLElement>("[data-copy-status]");
+    const text = document.getElementById("guia-prompt")?.textContent ?? "";
+
+    function fallbackCopy(value: string): boolean {
+      const ta = document.createElement("textarea");
+      ta.value = value;
+      ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, value.length);
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch {
+        ok = false;
+      }
+      ta.remove();
+      return ok;
+    }
+
+    btn?.addEventListener("click", async () => {
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch {
+        ok = fallbackCopy(text);
+      }
+      if (ok) {
+        btn.textContent = "¡Prompt copiado!";
+        if (status) status.hidden = false;
+      } else {
+        // Last resort: open the guide as plain text so the user can select it.
+        window.location.href = "/recursos/tu-negocio-en-numeros.md";
+      }
+    });
   </script>
 </Base>
 
