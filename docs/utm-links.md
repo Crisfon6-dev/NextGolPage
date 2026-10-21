@@ -17,9 +17,9 @@ Para un QR que salta la landing y abre WhatsApp con el mensaje de TopConnect (va
 https://wa.me/573219265622?text=Hola%2C%20vengo%20de%20TopConnect.%20Quiero%20mi%20MAPA
 ```
 
-Este link no pasa por la landing, así que no genera visita ni evento en Umami. Si quieres medir el QR, usa el link con UTM de la primera fila.
+Este link no pasa por la landing, así que no genera visita en la analítica. Si quieres medir el QR, usa el link con UTM de la primera fila.
 
-## Eventos en Umami
+## Eventos de clic (solo con Vercel Pro)
 
 Cada CTA envía un evento con el nombre `cta_<tipo>`:
 
@@ -30,4 +30,4 @@ Propiedades de cada evento:
 - `location`: `nav`, `hero`, `offer`, `sticky`, `fab`, `final`, `footer` o `founder` (dónde estaba el botón).
 - `source`: `topconnect`, `linkedin`, `email` o `direct`.
 
-Los eventos solo se registran cuando `CONFIG.UMAMI_WEBSITE_ID` tiene valor.
+Las visitas por fuente (UTM) se ven gratis en Vercel → Analytics. Estos eventos de clic ya se envían, pero Vercel solo los registra en el plan Pro.

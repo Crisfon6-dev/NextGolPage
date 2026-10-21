@@ -152,10 +152,11 @@ function initWhatsAppLinks(): void {
 
 /* ---------------- CTA click tracking ---------------- */
 
-/** Thin analytics wrapper: a blocked/missing Umami must never break a CTA. */
+/** Thin analytics wrapper (Vercel Web Analytics custom events; recorded on Pro plans only).
+ *  A blocked/missing script must never break a CTA. */
 function track(name: string, data: Record<string, string>): void {
   try {
-    (window as any).umami?.track(name, data);
+    (window as any).va?.("event", { name, data });
   } catch {
     /* analytics blocked — ignore */
   }

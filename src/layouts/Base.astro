@@ -63,11 +63,9 @@ const ogLocale = "es_US";
     <!-- Structured data (JSON-LD) -->
     <StructuredData lang={lang} path={path} />
 
-    <!-- Analytics: Umami Cloud, cookieless. Only emitted once the website ID is set.
-         No SRI on purpose: Umami updates script.js in place, a hash would break tracking. -->
-    {CONFIG.UMAMI_WEBSITE_ID && (
-      <script defer src="https://cloud.umami.is/script.js" data-website-id={CONFIG.UMAMI_WEBSITE_ID} data-domains="nextgol.com" />
-    )}
+    <!-- Analytics: Vercel Web Analytics (cookieless, page views + UTM). Same-origin script
+         served by Vercel once Analytics is enabled for the project; 404s harmlessly before. -->
+    <script defer src="/_vercel/insights/script.js" is:inline></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
