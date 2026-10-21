@@ -4,7 +4,7 @@
  * Google build rich results and lets LLMs (Claude, Perplexity, ChatGPT) extract
  * NextGol as an entity with concrete facts. Localized per page.
  */
-import { CONFIG, type Lang } from "../config";
+import { CONFIG, waLink, type Lang } from "../config";
 import { copy } from "../content/copy";
 
 interface Props {
@@ -16,21 +16,14 @@ const { lang, path } = Astro.props;
 const t = copy[lang];
 const site = CONFIG.SITE_URL;
 const pageUrl = new URL(path, site).toString();
-const logo = new URL("/favicon.svg", site).toString();
+const logo = new URL("/logo-mark-512.png", site).toString();
+const ogImage = new URL("/og-image.png", site).toString();
 
 const orgId = `${site}/#organization`;
 const siteId = `${site}/#website`;
+const slogan = "ChatGPT te dice cómo hacerlo; un agente de IA lo hace por ti.";
 
-// Services as a valid OfferCatalog (serviceType is NOT a property of
-// ProfessionalService — it belongs to Service, so Google ignores it there).
-const serviceNames = [
-  "AI automation",
-  "Custom software development",
-  "Cloud infrastructure (AWS)",
-  "Integrations & payments",
-  "AI team training",
-  "Dedicated engineering team",
-];
+const sameAs = [CONFIG.INSTAGRAM_URL, CONFIG.LINKEDIN_URL].filter(Boolean);
 
 const graph: Record<string, unknown>[] = [
   {
@@ -38,15 +31,26 @@ const graph: Record<string, unknown>[] = [
     "@id": orgId,
     name: "NextGol",
     url: site,
-    logo,
-    image: new URL("/og-image.png", site).toString(),
+    logo: { "@type": "ImageObject", url: logo, width: 512, height: 512 },
+    image: ogImage,
     description: t.meta.description,
+    slogan,
+    founder: {
+      "@type": "Person",
+      name: "Cristhian Fonseca",
+      jobTitle: "Fundador",
+      ...(CONFIG.LINKEDIN_URL ? { sameAs: [CONFIG.LINKEDIN_URL] } : {}),
+    },
+    sameAs,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      url: waLink("direct"),
+      availableLanguage: ["Spanish", "English"],
+    },
     knowsLanguage: ["es", "en"],
     areaServed: ["US", "Latin America"],
-    slogan:
-      lang === "es"
-        ? "Tu equipo de tecnología, sin tener que contratarlo."
-        : "Your tech team, without the hire.",
+    knowsAbout: ["agentes de IA", "inteligencia artificial para negocios"],
   },
   {
     "@type": "WebSite",
@@ -62,18 +66,33 @@ const graph: Record<string, unknown>[] = [
     "@id": `${site}/#service`,
     name: "NextGol",
     url: pageUrl,
-    image: new URL("/og-image.png", site).toString(),
+    image: ogImage,
     description: t.meta.description,
     provider: { "@id": orgId },
     areaServed: ["US", "Latin America"],
     availableLanguage: ["Spanish", "English"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "NextGol services",
-      itemListElement: serviceNames.map((name) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name },
-      })),
+      name: "Servicios de NextGol",
+      itemListElement: [
+        {
+          "@type": "Service",
+          name: "Agentes de IA para negocios",
+          provider: { "@id": orgId },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Cómo empezar",
+            itemListElement: [
+              {
+                "@type": "Offer",
+                name: t.offer.title,
+                description: "Videollamada de 30 minutos y, en 48 horas, una página hecha para tu negocio: qué automatizar primero, cómo se resolvería y cuánto cuesta.",
+                // No price on purpose: the Mapa is free, but price 0 needs a currency.
+              },
+            ],
+          },
+        },
+      ],
     },
   },
   {
@@ -88,7 +107,11 @@ const graph: Record<string, unknown>[] = [
   },
 ];
 
-const jsonLd = { "@context": "https://schema.org", "@graph": graph };
+// Secondary pages (e.g. /privacidad) only carry the entity graph; service + FAQ belong to the landing.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": path === "/" ? graph : graph.slice(0, 2),
+};
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

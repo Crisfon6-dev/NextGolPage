@@ -1,0 +1,91 @@
+---
+/**
+ * Founder + team. Photo is optional: until `public/brand/founder.jpg` exists we
+ * render an initials avatar (never a broken image). The proof block is its own
+ * card — never in the same sentence as the fintech description — and the
+ * LinkedIn link is hidden while CONFIG.LINKEDIN_URL is empty.
+ */
+import { existsSync } from "node:fs";
+import { LINKS, type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+
+const hasPhoto = existsSync("public/brand/founder.jpg");
+const initials = t.founder.name
+  .split(" ")
+  .map((w) => w[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<section id="fundador" class="ng-section">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.founder.eyebrow}</span></div>
+      <h2 class="ng-h2">{t.founder.title}</h2>
+    </div>
+
+    <div data-founder-grid style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:clamp(24px,4vw,48px);align-items:start;">
+      <div class="reveal">
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px;">
+          {hasPhoto ? (
+            <img src="/brand/founder.jpg" alt={t.founder.name} width="88" height="88" loading="lazy" decoding="async" style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid rgba(0,229,160,.4);flex-shrink:0;" />
+          ) : (
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,#00E5A0,#3B82F6);color:#06120D;font-family:var(--font-display);font-weight:700;font-size:30px;">{initials}</span>
+          )}
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:21px;">{t.founder.name}</div>
+            <div style="font-size:14px;color:#A7B0BE;margin-top:2px;">{t.founder.role}</div>
+          </div>
+        </div>
+
+        <p style="margin:0;max-width:60ch;font-size:16px;line-height:1.7;color:#C4CCD6;">{t.founder.text}</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+          {LINKS.linkedin && (
+            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-ghost ng-btn-sm" data-cta="linkedin" data-cta-location="founder">
+              <span>{t.founder.linkedin}</span>
+            </a>
+          )}
+          <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-ghost ng-btn-sm">
+            <span>{t.founder.instagram}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- proof: separate block, on purpose -->
+      <div class="reveal" style="background:#11161F;border:1px solid #1A212C;border-radius:18px;padding:clamp(22px,3vw,30px);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(0,229,160,.12);color:#00E5A0;">
+            <Icon name="shield" size={18} stroke={2} />
+          </span>
+          <h3 style="font-family:var(--font-display);font-weight:600;font-size:17px;margin:0;">{t.founder.proofTitle}</h3>
+        </div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;">
+          {t.proof.map((p) => (
+            <li style="display:flex;gap:10px;font-size:14.5px;line-height:1.6;color:#A7B0BE;">
+              <Icon name="check" size={16} stroke={2.6} class="ng-founder-check" />
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ng-founder-check {
+    flex-shrink: 0;
+    margin-top: 4px;
+    color: #00e5a0;
+  }
+</style>

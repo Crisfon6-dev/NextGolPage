@@ -36,29 +36,40 @@ const svg = `
   <rect width="1200" height="630" fill="url(#glowB)"/>
   <rect x="0" y="0" width="1200" height="6" fill="url(#brand)"/>
 
-  <!-- logo mark -->
-  <g transform="translate(96,96)">
-    <rect width="96" height="96" rx="24" fill="url(#brand)"/>
-    <g fill="none" stroke="#06120D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(24,24) scale(2)">
-      <path d="M5 19V7l7-4 7 4v12"/>
-      <path d="m8 13 3 3 5-6"/>
+  <!-- logo mark: same glyph as the site nav (public/logo-mark.svg, 64-unit grid scaled to 64px) -->
+  <g transform="translate(80,64)">
+    <g transform="scale(1)">
+      <rect width="64" height="64" rx="18" fill="url(#brand)"/>
+      <g fill="none" stroke="#06120D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 46V20"/><path d="M20 20 42 46"/><path d="M42 46V18"/>
+      </g>
+      <circle cx="42" cy="10" r="4.6" fill="#06120D"/>
     </g>
   </g>
-
-  <!-- wordmark -->
-  <text x="96" y="320" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="116" font-weight="700" letter-spacing="-3">
+  <text x="160" y="110" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="-1">
     <tspan fill="#F5F7FA">Next</tspan><tspan fill="#00E5A0">Gol</tspan>
   </text>
 
-  <!-- tagline -->
-  <text x="98" y="400" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="40" font-weight="600" fill="#F5F7FA">Tu equipo de tecnología</text>
-  <text x="98" y="462" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="33" font-weight="400" fill="#A7B0BE">Software, IA y Automatización · Senior · Bilingüe · AWS</text>
+  <!-- headline -->
+  <text font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="92" font-weight="700" letter-spacing="-2.5" fill="#F5F7FA">
+    <tspan x="80" y="262">Agentes de IA</tspan>
+    <tspan x="80" y="356">para tu negocio</tspan>
+  </text>
 
-  <!-- community chip -->
-  <g transform="translate(98,520)">
-    <rect width="360" height="56" rx="28" fill="#11161F" stroke="#1F2A38"/>
-    <circle cx="34" cy="28" r="6" fill="#00E5A0"/>
-    <text x="58" y="36" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#A7B0BE">Miembros de TOP CoNNecT</text>
+  <!-- slogan -->
+  <text font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="#A7B0BE">
+    <tspan x="82" y="426">ChatGPT te dice cómo hacerlo;</tspan>
+    <tspan x="82" y="470">un agente de IA lo hace por ti.</tspan>
+  </text>
+
+  <!-- CTA pill + community -->
+  <g transform="translate(80,516)">
+    <rect width="330" height="64" rx="32" fill="url(#brand)"/>
+    <text x="165" y="42" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#06120D">Pide tu Mapa gratis</text>
+  </g>
+  <g transform="translate(446,516)">
+    <circle cx="12" cy="32" r="6" fill="#00E5A0"/>
+    <text x="30" y="41" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#A7B0BE">Miembro de TopConnect</text>
   </g>
 </svg>
 `;

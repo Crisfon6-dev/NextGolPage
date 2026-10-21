@@ -1,18 +1,16 @@
 ---
 /**
- * Single source of page composition, parameterized by locale. Both routes
- * (`/` ES and `/en/` EN) render this with their `lang`, so every word is
- * server-rendered per language — fully visible to search engines and LLMs.
+ * Single source of page composition. Phase 1 is Spanish-only; `lang` is kept so
+ * the phase-2 English change only has to supply translated copy.
+ * Order: Nav, Hero, Cómo funciona, Mapa, Casos, Fundador, FAQ, CTA final, Footer.
  */
 import { type Lang } from "../config";
 import Nav from "./Nav.astro";
 import Hero from "./Hero.astro";
-import TrustBar from "./TrustBar.astro";
-import Services from "./Services.astro";
-import ForWho from "./ForWho.astro";
-import Differentiators from "./Differentiators.astro";
 import Process from "./Process.astro";
-import SocialProof from "./SocialProof.astro";
+import Offer from "./Offer.astro";
+import UseCases from "./UseCases.astro";
+import Founder from "./Founder.astro";
 import FAQ from "./FAQ.astro";
 import FinalCTA from "./FinalCTA.astro";
 import Footer from "./Footer.astro";
@@ -28,12 +26,10 @@ const { lang } = Astro.props;
 <Nav lang={lang} />
 <main id="main-content">
   <Hero lang={lang} />
-  <TrustBar lang={lang} />
-  <Services lang={lang} />
-  <ForWho lang={lang} />
-  <Differentiators lang={lang} />
   <Process lang={lang} />
-  <SocialProof lang={lang} />
+  <Offer lang={lang} />
+  <UseCases lang={lang} />
+  <Founder lang={lang} />
   <FAQ lang={lang} />
   <FinalCTA lang={lang} />
 </main>

@@ -3,67 +3,54 @@ export type Lang = "es" | "en";
 /**
  * Configuración central de la landing.
  *
- * ⚠️ PENDIENTE — reemplazar antes de lanzar:
- *   - CALENDLY_URL  → link real de Calendly/Cal.com (destino de todos los CTA primarios)
- *   - WHATSAPP_URL  → https://wa.me/<número con código de país> (CTA secundarios)
- *   - EMAIL         → confirmar dirección de contacto
+ * Pendientes de Cristhian (ver openspec/changes/nextgol-topconnect-mapa/tasks.md, grupo 0):
+ *   - LINKEDIN_URL      → vacío: los links a LinkedIn se ocultan hasta que haya URL
+ *   - CALENDLY_URL      → evento de 30 min
+ *   - UMAMI_WEBSITE_ID  → vacío: Base.astro no emite el script de analytics
  */
 export const CONFIG = {
+  // TODO(0.2): swap to the 30-min event URL (calendly.com/crisfon6/30min once it exists).
+  // Never mention the duration in UI copy until then.
   CALENDLY_URL: "https://calendly.com/crisfon6/15min",
-  WHATSAPP_URL: "https://wa.me/573219265622",
+  // Pending (0.1). Empty = every LinkedIn link is hidden.
+  LINKEDIN_URL: "",
+  INSTAGRAM_URL: "https://instagram.com/nextgol.tech",
   EMAIL: "disruptivecrisfon6@gmail.com",
+  // Pending (0.7). Empty = no analytics script.
+  UMAMI_WEBSITE_ID: "",
   DEFAULT_LANG: "es" as Lang,
   SITE_URL: "https://nextgol.com",
 } as const;
 
-/**
- * Resolved action links. While CALENDLY_URL / WHATSAPP_URL are PENDIENTE, every
- * CTA falls back to a working `mailto:` instead of shipping a dead link — a
- * conversion safeguard (a dead primary CTA = 0 conversions). Replace the
- * placeholders in CONFIG above and the fallbacks disappear automatically.
- */
-const isPlaceholder = (u: string) => u.includes("PENDIENTE");
+/* ---------------- WhatsApp MAPA (primary CTA) ---------------- */
 
-const hasCalendly = !isPlaceholder(CONFIG.CALENDLY_URL);
-const hasWhatsApp = !isPlaceholder(CONFIG.WHATSAPP_URL);
+export const WA_NUMBER = "573219265622";
 
-export const LINKS = {
-  // Booking CTA fallback chain: real Calendly → WhatsApp (working channel) →
-  // email as last resort. Keeps "Agendar llamada" pointing at a live channel
-  // instead of a cold mailto while Calendly is still PENDIENTE.
-  booking: hasCalendly
-    ? CONFIG.CALENDLY_URL
-    : hasWhatsApp
-      ? CONFIG.WHATSAPP_URL
-      : `mailto:${CONFIG.EMAIL}`,
-  whatsapp: hasWhatsApp ? CONFIG.WHATSAPP_URL : `mailto:${CONFIG.EMAIL}`,
-  hasCalendly,
-  hasWhatsApp,
-} as const;
+export type Source = "topconnect" | "linkedin" | "email" | "direct";
 
-/**
- * Social proof. Add real client testimonials here and the Social Proof section
- * renders automatically. Left EMPTY on purpose — fabricated testimonials are
- * dishonest and legally risky. Each quote is bilingual.
- */
-export interface Testimonial {
-  quote: { es: string; en: string };
-  author: string;
-  role: { es: string; en: string };
+/** Texto precargado por fuente: el origen llega escrito dentro del mensaje. */
+export const MESSAGES: Record<Source, string> = {
+  topconnect: "Hola, vengo de TopConnect. Quiero mi MAPA",
+  linkedin: "Hola, vengo de LinkedIn. Quiero mi MAPA",
+  email: "Hola, vengo por correo. Quiero mi MAPA",
+  direct: "Hola, vi la página de NextGol. Quiero mi MAPA",
+};
+
+/** Cualquier `utm_source` desconocido o vacío cae en "direct". */
+export function normalizeSource(raw: string | null | undefined): Source {
+  const v = (raw ?? "").trim().toLowerCase();
+  return v === "topconnect" || v === "linkedin" || v === "email" ? v : "direct";
 }
 
-export const TESTIMONIALS: Testimonial[] = [];
+export function waLink(source: Source): string {
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(MESSAGES[source])}`;
+}
 
-/** Stack mostrado en la Trust bar. */
-export const STACK = [
-  "AWS",
-  "Python",
-  "FastAPI",
-  "Node.js",
-  "React",
-  "Angular",
-  "Svelte",
-  "Flutter",
-  "PostgreSQL",
-  "Docker",
-] as const;
+export const LINKS = {
+  /** SSR default = tráfico de TopConnect; interactions.ts lo reescribe según utm_source. */
+  whatsapp: waLink("topconnect"),
+  booking: CONFIG.CALENDLY_URL,
+  /** "" cuando está pendiente → ocultar. */
+  linkedin: CONFIG.LINKEDIN_URL,
+  instagram: CONFIG.INSTAGRAM_URL,
+} as const;

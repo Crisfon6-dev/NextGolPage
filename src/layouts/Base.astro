@@ -6,7 +6,7 @@ import "../styles/global.css";
 
 interface Props {
   lang: Lang;
-  /** Path of THIS page, e.g. "/" or "/en/". Drives canonical + hreflang. */
+  /** Path of THIS page, e.g. "/" or "/en/". Drives the canonical URL. */
   path: string;
   title?: string;
   description?: string;
@@ -21,14 +21,8 @@ const site = CONFIG.SITE_URL;
 const canonical = new URL(path, site).toString();
 const ogImage = new URL("/og-image.png", site).toString();
 
-// hreflang alternates — both locales + x-default (Spanish is the default root).
-const alternates = [
-  { hreflang: "es", href: new URL("/", site).toString() },
-  { hreflang: "en", href: new URL("/en/", site).toString() },
-  { hreflang: "x-default", href: new URL("/", site).toString() },
-];
-const ogLocale = lang === "es" ? "es_ES" : "en_US";
-const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
+// Phase 1 is Spanish-only: no hreflang alternates (canonical is enough).
+const ogLocale = "es_US";
 ---
 
 <!doctype html>
@@ -37,10 +31,9 @@ const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonical} />
-    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
 
@@ -59,7 +52,6 @@ const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
     <meta property="og:image:alt" content={t.meta.ogAlt} />
     <meta property="og:site_name" content="NextGol" />
     <meta property="og:locale" content={ogLocale} />
-    <meta property="og:locale:alternate" content={ogLocaleAlt} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -70,6 +62,12 @@ const ogLocaleAlt = lang === "es" ? "en_US" : "es_ES";
 
     <!-- Structured data (JSON-LD) -->
     <StructuredData lang={lang} path={path} />
+
+    <!-- Analytics: Umami Cloud, cookieless. Only emitted once the website ID is set.
+         No SRI on purpose: Umami updates script.js in place, a hash would break tracking. -->
+    {CONFIG.UMAMI_WEBSITE_ID && (
+      <script defer src="https://cloud.umami.is/script.js" data-website-id={CONFIG.UMAMI_WEBSITE_ID} data-domains="nextgol.com" />
+    )}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

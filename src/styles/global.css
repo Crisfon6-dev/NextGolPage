@@ -297,37 +297,6 @@ body {
   max-width: 620px;
 }
 
-/* ============ ES/EN toggle — links; active driven by html[data-lang] ============ */
-.ng-lang-toggle {
-  display: inline-flex;
-  border: 1px solid #1F2A38;
-  border-radius: 999px;
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 600;
-}
-.ng-lang-seg {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 7px 13px;
-  background: transparent;
-  color: #A7B0BE;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  font: inherit;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-.ng-lang-seg:hover {
-  color: #F5F7FA;
-}
-html[data-lang="es"] .ng-lang-seg[data-lang-seg="es"],
-html[data-lang="en"] .ng-lang-seg[data-lang-seg="en"] {
-  background: #00E5A0;
-  color: #06120D;
-}
-
 /* ============ FAQ accordion (native <details>, SEO-safe + a11y) ============ */
 .ng-faq {
   display: flex;
@@ -397,18 +366,6 @@ html[data-lang="en"] .ng-lang-seg[data-lang-seg="en"] {
   color: #A7B0BE;
 }
 .ng-cta-note svg {
-  color: #00E5A0;
-}
-
-/* Testimonials */
-.ng-quote {
-  margin: 0;
-  background: #11161F;
-  border: 1px solid #1A212C;
-  border-radius: var(--radius-card);
-  padding: 26px;
-}
-.ng-quote-icon {
   color: #00E5A0;
 }
 
@@ -528,6 +485,41 @@ html[data-lang="en"] .ng-lang-seg[data-lang-seg="en"] {
 @media (min-width: 901px) {
   [data-mobile-menu] {
     display: none !important;
+  }
+}
+
+/* Tablet portrait & down: founder block stacks */
+@media (max-width: 900px) {
+  [data-founder-grid] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Nav booking button hides below 768px — the sticky bar carries the CTA, and
+   logo + button + burger overflowed a 390px viewport (459px page). */
+@media (max-width: 767px) {
+  [data-nav-cta] {
+    display: none !important;
+  }
+}
+
+/* Small phones (360–430px): CTAs go full width and may wrap, so nothing can
+   push the page wider than the viewport. */
+@media (max-width: 480px) {
+  [data-cta-row] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  [data-cta-row] > .ng-btn {
+    white-space: normal;
+    text-align: center;
+  }
+  .ng-btn {
+    white-space: normal;
+  }
+  /* Hero steps: one per row instead of three cramped columns */
+  [data-hero-steps] {
+    grid-template-columns: 1fr !important;
   }
 }
 

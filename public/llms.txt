@@ -1,41 +1,36 @@
 # NextGol
 
-> NextGol is your external technology team — bilingual (Spanish/English) senior
-> engineers who build, automate, and integrate the software a business needs to
-> grow, without the cost and overhead of hiring an in-house team. Nearshore
-> pricing, business-outcome focused, part of the TOP CoNNecT community.
+> NextGol es una consultora de software e innovación con IA, especializada en agentes de IA para negocios. Encontramos qué proceso de tu negocio conviene pasarle a un agente de IA, lo construimos con tu equipo y lo dejamos funcionando. Miembro de TopConnect.
 
-NextGol works with two kinds of clients: (1) business owners / SMBs who want to
-digitize, automate, and sell more, and (2) startup founders who need a product
-built or a dedicated engineering team without hiring and managing engineers.
+Un agente de IA es un programa que hace un proceso completo dentro de un negocio: recibe el caso, busca lo que necesita en los sistemas, hace los pasos y lo deja listo para que una persona lo apruebe. ChatGPT te dice cómo hacerlo; un agente de IA lo hace por ti.
 
-## What NextGol does
+## Cómo trabajamos
 
-- **AI Automation**: customer support, scheduling, lead follow-up, and reporting. Businesses typically cut operating costs by 40–60%.
-- **Custom Software & Cloud (AWS)**: web and mobile apps plus cloud infrastructure, end to end.
-- **Integrations & Payments**: connects existing tools and payment gateways, removing manual data entry.
-- **AI Team Training**: upskills client teams to multiply productivity.
-- **Tech Team for Startups**: dedicated engineers or a full turnkey product.
+1. Diagnóstico: una videollamada de 30 minutos sobre cómo funciona el negocio hoy, para decidir qué proceso conviene pasarle primero a un agente de IA.
+2. Lo construimos con tu equipo: diseñamos el agente de IA con las personas que hacen ese trabajo y lo probamos con casos reales antes de que toque a un cliente.
+3. Lo ponemos a funcionar y lo ajustamos: el agente de IA empieza a trabajar, tu equipo aprueba lo importante y lo corregimos hasta que funcione como acordamos.
 
-## How engagements work
+## Para empezar: el Mapa de tu primer agente de IA
 
-Pricing is tailored to each project's scope — one-off projects and monthly
-retainers (ongoing support, dedicated team, fractional CTO). Every engagement
-starts with a free 30-minute diagnosis call to define scope, timeline, and price.
+- Una videollamada de 30 minutos y, en 48 horas, una página hecha para tu negocio con tres respuestas: qué automatizar primero, cómo se resolvería y cuánto cuesta.
+- La página es del cliente, aunque no trabaje con NextGol.
+- Cupos limitados por semana.
+- Precio de lanzamiento para los 3 primeros proyectos que lleguen desde TopConnect.
 
-## Key facts
+## Para quién
 
-- Languages: Spanish and English (fully bilingual).
-- Model: external/turnkey technology department; nearshore pricing.
-- Differentiators: real senior engineering (backend, cloud, data, AI), business-outcome focus, close & bilingual communication, flexible scope.
-- Community: members of TOP CoNNecT.
+Negocios de servicios en Estados Unidos y Latinoamérica, por ejemplo seguros, impuestos, legal, bienes raíces y otros servicios. Trabajamos en español y también en inglés.
 
-## Pages
+## Fundador
 
-- [Spanish landing page](https://nextgol.com/): full overview in Spanish.
-- [English landing page](https://nextgol.com/en/): full overview in English.
+Cristhian Fonseca fundó NextGol. Además de dirigir NextGol, trabaja en una fintech estadounidense con presencia en México y Colombia que facilita el acceso al crédito dentro de superapps de telecomunicaciones, donde lleva funcionalidades de punta a punta, desde la idea hasta producción.
 
-## Contact
+## Páginas
 
-- WhatsApp: https://wa.me/573219265622
-- Primary action: book a free diagnosis call via the website.
+- [Inicio](https://nextgol.com/): resumen de la propuesta, el Mapa, casos de uso y preguntas frecuentes.
+- [Política de privacidad](https://nextgol.com/privacidad): qué datos se recogen y cómo se usan.
+
+## Contacto
+
+- WhatsApp (escribe MAPA): https://wa.me/573219265622?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20NextGol.%20Quiero%20mi%20MAPA
+- Instagram: https://instagram.com/nextgol.tech
