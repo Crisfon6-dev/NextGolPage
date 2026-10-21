@@ -1,14 +1,22 @@
 import type { Lang } from "../config";
 
 /**
- * Copy bilingüe (verbatim del handoff de diseño).
- * El mismo objeto se usa para render server-side (idioma default) y para el
- * swap client-side del toggle ES/EN (importado por el script de interacciones).
+ * Copy de la landing. Fase 1 = solo español: `copy.es` es la única fuente de
+ * verdad (textos de docs/audit-2026-10.md §3). Reglas duras: siempre "agente de
+ * IA", sin cifras / precios / clientes inventados, trato de "tú". Se verifican
+ * con `npm run lint:copy`.
  */
 export interface Copy {
   /** Per-locale SEO metadata (server-rendered into <head>). */
   meta: { title: string; description: string; ogAlt: string };
-  nav: { services: string; who: string; process: string; faq: string; cta: string };
+  nav: {
+    process: string;
+    offer: string;
+    cases: string;
+    founder: string;
+    faq: string;
+    cta: string;
+  };
   hero: {
     eyebrow: string;
     badge: string;
@@ -18,38 +26,42 @@ export interface Copy {
     subhead: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    micro: string[];
-  };
-  trust: string;
-  services: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    s1: { title: string; desc: string; benefit: string };
-    s2: { title: string; desc: string };
-    s3: { title: string; desc: string };
-    s4: { title: string; desc: string };
-    s5: { title: string; desc: string };
-  };
-  who: {
-    eyebrow: string;
-    title: string;
-    laneA: { tag: string; title: string; text: string; bullets: string[] };
-    laneB: { tag: string; title: string; text: string; bullets: string[] };
-  };
-  diff: {
-    eyebrow: string;
-    title: string;
-    d1: { title: string; text: string };
-    d2: { title: string; text: string };
-    d3: { title: string; text: string };
-    d4: { title: string; text: string };
+    audience: string;
   };
   process: {
     eyebrow: string;
     title: string;
     steps: { n: string; t: string; d: string }[];
   };
+  offer: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    items: { t: string; d: string }[];
+    closing: string;
+    scarcity: string;
+    topconnect: string;
+    cta: string;
+  };
+  useCases: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    /** Max 3. Framed as possibility, never as client history. */
+    items: { title: string; text: string }[];
+  };
+  founder: {
+    eyebrow: string;
+    title: string;
+    name: string;
+    role: string;
+    text: string;
+    proofTitle: string;
+    linkedin: string;
+    instagram: string;
+  };
+  /** Bloque de prueba del fundador, aislado (decisión 0.5: "nosotros" vs 3ª persona). */
+  proof: string[];
   faq: {
     eyebrow: string;
     title: string;
@@ -58,267 +70,201 @@ export interface Copy {
   };
   /** Risk-reversal microcopy shown under primary CTAs. */
   ctaNote: string;
-  social: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-  };
   final: {
     title: string;
     subtitle: string;
     ctaPrimary: string;
-    ctaSecondary: string;
+    ctaBooking: string;
+    ctaLinkedin: string;
+    ctaEmail: string;
+    note: string;
   };
   footer: {
     tagline: string;
     navTitle: string;
     contactTitle: string;
+    writeUs: string;
+    privacy: string;
     community: string;
     legal: string;
   };
 }
 
+/**
+ * Prueba honesta (banco A6). Constante aparte para poder pasarla a tercera
+ * persona ("Cristhian construyó…") en una sola edición. Nunca nombra la fintech.
+ */
+const proofEs: string[] = [
+  "Construimos agentes de IA que consultan bases de datos en lenguaje normal, y comparamos sus cifras con la fuente hasta que cuadraron exacto.",
+  "Los atacamos a propósito con más de 30 formas distintas de intentar sacar datos, hasta que ninguna sacó nada.",
+  "Usamos un panel de revisión: dos revisores de IA, por separado, revisan cada entrega; un tercero junta lo encontrado y se corrige solo lo confirmado.",
+  "Una regla que no cambia: el agente de IA propone y una persona de tu equipo aprueba lo importante.",
+];
+
+const es: Copy = {
+  meta: {
+    title: "NextGol: agentes de IA para tu negocio | Pide tu Mapa gratis",
+    description:
+      "Consultora de software e innovación con IA. Encontramos qué proceso de tu negocio conviene pasarle a un agente de IA, lo construimos con tu equipo y lo dejamos funcionando. Diagnóstico gratis de 30 min.",
+    ogAlt: "NextGol: agentes de IA para tu negocio. Pide tu Mapa gratis.",
+  },
+  nav: {
+    process: "Cómo funciona",
+    offer: "El Mapa",
+    cases: "Casos",
+    founder: "Quién está detrás",
+    faq: "Preguntas",
+    cta: "Agendar llamada",
+  },
+  hero: {
+    eyebrow: "Consultora de software e innovación con IA",
+    badge: "Miembro de TopConnect",
+    pre: "Agentes de IA que hacen el trabajo de tu negocio. ",
+    accent: "Tú apruebas lo importante.",
+    post: "",
+    subhead:
+      "ChatGPT te dice cómo hacerlo; un agente de IA lo hace por ti. Encontramos qué proceso de tu negocio conviene pasarle primero, lo construimos con tu equipo y lo dejamos funcionando.",
+    ctaPrimary: "Escribe MAPA por WhatsApp",
+    ctaSecondary: "Prefiero agendar una llamada",
+    audience:
+      "Para dueños de negocio en seguros, impuestos, legal, bienes raíces y servicios, en EE. UU. y Latinoamérica.",
+  },
+  process: {
+    eyebrow: "Cómo trabajamos",
+    title: "Tres pasos, sin humo",
+    steps: [
+      {
+        n: "1",
+        t: "Diagnóstico",
+        d: "Hablamos 30 minutos por videollamada sobre cómo funciona tu negocio hoy. Te decimos qué proceso conviene pasarle primero a un agente de IA y, si ninguno vale la pena todavía, también te lo decimos.",
+      },
+      {
+        n: "2",
+        t: "Lo construimos con tu equipo",
+        d: "Diseñamos el agente de IA con las personas que hacen ese trabajo todos los días. Lo probamos con casos reales tuyos antes de que toque a un solo cliente.",
+      },
+      {
+        n: "3",
+        t: "Lo ponemos a funcionar y lo ajustamos",
+        d: "El agente de IA empieza a trabajar y tu equipo aprueba lo importante. Medimos, corregimos y lo ajustamos hasta que funciona como acordamos.",
+      },
+    ],
+  },
+  offer: {
+    eyebrow: "Para empezar",
+    title: "Mapa de tu primer agente de IA",
+    text: "Una videollamada de 30 minutos y, en 48 horas, una página hecha para tu negocio con tres respuestas:",
+    items: [
+      {
+        t: "Qué automatizar primero",
+        d: "El proceso que más horas te quita y conviene pasarle a un agente de IA.",
+      },
+      {
+        t: "Cómo se resolvería",
+        d: "Qué hace el agente de IA, qué revisa tu equipo y qué aprueba una persona.",
+      },
+      {
+        t: "Cuánto cuesta",
+        d: "Un precio cerrado para ese proyecto, sin sorpresas.",
+      },
+    ],
+    closing: "El diagnóstico es gratis y la página es tuya aunque no trabajes con nosotros.",
+    scarcity: "Hacemos pocos Mapas por semana para poder dedicarle tiempo a cada uno.",
+    topconnect: "Si vienes de TopConnect, los 3 primeros proyectos tienen precio de lanzamiento.",
+    cta: "Escribe MAPA por WhatsApp",
+  },
+  useCases: {
+    eyebrow: "Lo que podría hacer",
+    title: "Qué puede hacer un agente de IA en tu negocio",
+    subtitle:
+      "Tres ejemplos de lo que haría un agente de IA en tu negocio. Son posibilidades que definimos contigo en el Mapa, no resultados de otros clientes.",
+    items: [
+      {
+        title: "Lo urgente de cada mañana",
+        text: "Cada mañana, un agente de IA revisaría tu correo, tu agenda y tus pendientes, y te dejaría listo qué atender primero. Tú solo decides.",
+      },
+      {
+        title: "Pregúntale a tus números",
+        text: "Le harías una pregunta en lenguaje normal, como «¿cuánto facturé este mes?», y un agente de IA consultaría tus datos y te daría la respuesta.",
+      },
+      {
+        title: "Del mensaje al expediente listo",
+        text: "Un cliente te escribe y un agente de IA recogería sus datos y documentos, armaría el expediente y te lo dejaría listo para revisar y aprobar.",
+      },
+    ],
+  },
+  founder: {
+    eyebrow: "Quién está detrás",
+    title: "Hablas con quien construye",
+    name: "Cristhian Fonseca",
+    role: "Fundador de NextGol",
+    text: "NextGol lo fundó Cristhian Fonseca. Además de dirigir NextGol, trabaja en una fintech estadounidense con presencia en México y Colombia que facilita el acceso al crédito dentro de superapps de telecomunicaciones. Allí lleva funcionalidades de punta a punta, desde la idea hasta producción. Esa misma forma de trabajar es la que trae a NextGol: un equipo que diseña, construye y prueba, y que se queda hasta que la solución funciona.",
+    proofTitle: "Cómo trabajamos con la información delicada",
+    linkedin: "LinkedIn de Cristhian",
+    instagram: "Instagram @nextgol.tech",
+  },
+  proof: proofEs,
+  faq: {
+    eyebrow: "Preguntas frecuentes",
+    title: "Lo que suele preguntar un dueño de negocio",
+    subtitle: "Respuestas claras antes de escribirnos.",
+    items: [
+      {
+        q: "¿Qué es un agente de IA?",
+        a: "Un programa que hace un proceso completo dentro de tu negocio: recibe el caso, busca lo que necesita en tus sistemas, hace los pasos y te lo deja listo para aprobar. ChatGPT te dice cómo hacerlo; un agente de IA lo hace por ti.",
+      },
+      {
+        q: "¿Necesito saber de tecnología?",
+        a: "No. Tú conoces tu negocio y nosotros nos encargamos de la parte técnica, con explicaciones en lenguaje claro.",
+      },
+      {
+        q: "¿Qué pasa si el agente de IA se equivoca?",
+        a: "Por eso trabaja con control: se prueba con casos tuyos antes de tocar a un cliente, y una persona de tu equipo aprueba lo importante.",
+      },
+      {
+        q: "¿Mis datos están seguros?",
+        a: "Trabajamos con el mínimo acceso necesario, en cuentas a nombre de tu negocio, y lo definimos contigo en el diagnóstico.",
+      },
+      {
+        q: "¿Cuánto cuesta?",
+        a: "Depende del proceso. Por eso el Mapa incluye un precio cerrado para tu caso antes de que decidas nada.",
+      },
+      {
+        q: "¿En qué idioma trabajan?",
+        a: "En español, y también en inglés si tu equipo o tus clientes lo necesitan.",
+      },
+    ],
+  },
+  ctaNote: "Diagnóstico gratis de 30 min · Cupos limitados por semana",
+  final: {
+    title: "¿Qué tarea te quita más horas a la semana?",
+    subtitle:
+      "Cuéntanos en 30 minutos. En 48 horas te enviamos el Mapa con qué automatizar primero, cómo y cuánto cuesta. Gratis, y es tuyo aunque no sigamos.",
+    ctaPrimary: "Escribe MAPA por WhatsApp",
+    ctaBooking: "Agendar llamada",
+    ctaLinkedin: "LinkedIn de Cristhian",
+    ctaEmail: "Escríbenos por correo",
+    note: "Gratis · 30 min por videollamada · Cupos limitados por semana",
+  },
+  footer: {
+    tagline: "Consultora de software e innovación con IA. Especialistas en agentes de IA.",
+    navTitle: "Navegación",
+    contactTitle: "Contacto",
+    writeUs: "Escríbenos",
+    privacy: "Privacidad",
+    community: "Miembro de TopConnect",
+    legal: "© 2026 NextGol. Todos los derechos reservados.",
+  },
+};
+
+/**
+ * EN: TODO fase 2. Hasta entonces `en` hereda todo el texto de `es` y solo se
+ * sobreescribe lo que se traduzca en `enOverrides`. `/en/` no se publica
+ * (302 → `/` en vercel.json), así que este contenido nunca se muestra.
+ */
+const enOverrides: Partial<Copy> = {}; // TODO fase 2
+
 export const copy: Record<Lang, Copy> = {
-  es: {
-    meta: {
-      title: "NextGol — Tu equipo de tecnología | Software, IA y Automatización",
-      description:
-        "Construimos, automatizamos e integramos el software que tu negocio necesita para crecer. Ingeniería senior y bilingüe, enfocada en resultados. Llamada gratis.",
-      ogAlt: "NextGol — tu equipo de tecnología: software, IA y automatización.",
-    },
-    nav: { services: "Servicios", who: "Para quién", process: "Proceso", faq: "Preguntas", cta: "Agendar llamada" },
-    hero: {
-      eyebrow: "Software · IA · Automatización",
-      badge: "Miembros de TOP CoNNecT",
-      pre: "Tu ",
-      accent: "equipo de tecnología",
-      post: ", sin tener que contratarlo",
-      subhead:
-        "Construimos, automatizamos e integramos el software que tu negocio necesita para crecer — para que tú te dediques a tu negocio, no a la parte técnica.",
-      ctaPrimary: "Agendar llamada gratis",
-      ctaSecondary: "Hablar por WhatsApp",
-      micro: ["Diagnóstico gratis", "Ingeniería senior", "Bilingüe", "AWS"],
-    },
-    trust: "Construido con tecnología de nivel mundial",
-    services: {
-      eyebrow: "Lo que hacemos",
-      title: "Un solo socio para toda tu tecnología",
-      subtitle:
-        "Desde tu sitio web hasta tu producto completo. Elige lo que necesitas hoy y crece con nosotros.",
-      s1: {
-        title: "Automatización con IA",
-        desc: "Atención al cliente, agendamiento, seguimiento de leads y reportes. Menos trabajo manual, más tiempo para vender.",
-        benefit: "Hasta 40–60% menos costos",
-      },
-      s2: { title: "Software a medida & Cloud", desc: "Apps web y móviles e infraestructura AWS, de principio a fin." },
-      s3: { title: "Integraciones & Pagos", desc: "Conectamos tus herramientas y pasarelas de pago." },
-      s4: { title: "Entrenamiento en IA", desc: "Capacitamos a tu equipo para multiplicar su productividad." },
-      s5: { title: "Equipo para startups", desc: "Ingenieros dedicados o tu producto completo, llave en mano." },
-    },
-    who: {
-      eyebrow: "Para quién",
-      title: "Te entendemos, estés donde estés",
-      laneA: {
-        tag: "Dueños de negocio · PyME",
-        title: "Tienes un negocio que quiere crecer",
-        text: "Pierdes horas en procesos manuales, tu web no convierte o tus herramientas no se hablan entre sí. Te ayudamos a digitalizar, automatizar y vender más.",
-        bullets: ["Web que convierte", "Automatización con IA", "Integraciones", "Soporte bilingüe"],
-      },
-      laneB: {
-        tag: "Fundadores · Startups",
-        title: "Tienes una idea o producto, pero no equipo técnico",
-        text: "No quieres contratar ni gestionar ingenieros. Construimos tu producto o te damos un equipo dedicado, para que te enfoques en crecer.",
-        bullets: ["Producto (MVP → escala)", "Equipo dedicado", "Dirección técnica", "AWS y buenas prácticas"],
-      },
-    },
-    diff: {
-      eyebrow: "Por qué NextGol",
-      title: "Ni freelancer suelto, ni agencia fría",
-      d1: { title: "Ingeniería senior real", text: "Backend, cloud, datos e IA — no solo páginas bonitas." },
-      d2: { title: "Enfocados en tu negocio", text: "Medimos en resultados: menos costos, más ventas, menos trabajo manual." },
-      d3: { title: "Cercanía y bilingüe", text: "Hablamos tu idioma (ES/EN) y somos parte de tu comunidad." },
-      d4: { title: "Flexible y a tu medida", text: "Desde un proyecto puntual hasta tu departamento de tecnología completo." },
-    },
-    process: {
-      eyebrow: "Cómo trabajamos",
-      title: "Empezar es simple",
-      steps: [
-        { n: "1", t: "Llamada de diagnóstico", d: "Cuéntanos tu negocio y tu reto. Gratis y sin compromiso." },
-        { n: "2", t: "Propuesta a tu medida", d: "Te entregamos un plan claro con alcance, tiempos y precio." },
-        { n: "3", t: "Construimos y crecemos", d: "Ejecutamos, entregamos y te acompañamos para escalar." },
-      ],
-    },
-    faq: {
-      eyebrow: "Preguntas frecuentes",
-      title: "Lo que sueles preguntarnos",
-      subtitle: "Respuestas claras antes de la llamada. ¿Te queda otra duda? Escríbenos.",
-      items: [
-        {
-          q: "¿Qué hace NextGol exactamente?",
-          a: "Somos tu equipo de tecnología externo. Construimos software a medida, automatizamos procesos con IA, integramos tus herramientas y pasarelas de pago, y montamos infraestructura en la nube (AWS) — de principio a fin, para que tú te dediques a tu negocio.",
-        },
-        {
-          q: "¿Cuánto cuesta trabajar con ustedes?",
-          a: "Cada proyecto se cotiza a medida según su alcance. Trabajamos por proyectos puntuales y también con planes mensuales (retainer) para acompañamiento continuo o un equipo dedicado. En la llamada de diagnóstico gratuita definimos alcance, tiempos y precio claros.",
-        },
-        {
-          q: "¿Trabajan en inglés y en español?",
-          a: "Sí, somos completamente bilingües (ES/EN). Hablamos tu idioma y el de tus clientes, sin barreras de comunicación ni malentendidos técnicos.",
-        },
-        {
-          q: "¿Necesito saber de tecnología para trabajar con ustedes?",
-          a: "Para nada. Tú pones el conocimiento de tu negocio y nosotros lo traducimos a tecnología. Te explicamos todo en lenguaje claro y medimos el éxito en resultados: menos costos, más ventas y menos trabajo manual.",
-        },
-        {
-          q: "¿Cómo me puede ayudar la IA en mi negocio?",
-          a: "La IA automatiza tareas repetitivas: atención al cliente, agendamiento, seguimiento de leads y reportes. Negocios que la adoptan suelen reducir entre 40 % y 60 % sus costos operativos y manejar mucho más volumen sin contratar proporcionalmente.",
-        },
-        {
-          q: "¿Cómo empezamos?",
-          a: "Agenda una llamada de diagnóstico gratuita de 15 minutos. Entendemos tu reto, te damos una propuesta a tu medida y, si avanzamos, construimos y te acompañamos para escalar. Sin compromiso.",
-        },
-      ],
-    },
-    ctaNote: "Gratis · 15 min · Sin compromiso",
-    social: {
-      eyebrow: "Lo que dicen",
-      title: "Negocios que ya dieron el salto",
-      subtitle: "Resultados reales de quienes confiaron en nosotros.",
-    },
-    final: {
-      title: "¿Listo para tu próximo gol?",
-      subtitle:
-        "Agenda una llamada gratis de 15 minutos. Te diremos exactamente cómo la tecnología puede hacer crecer tu negocio.",
-      ctaPrimary: "Agendar llamada gratis",
-      ctaSecondary: "Escríbenos por WhatsApp",
-    },
-    footer: {
-      tagline: "Tu equipo de tecnología. Software, IA y automatización para crecer.",
-      navTitle: "Navegación",
-      contactTitle: "Contacto",
-      community: "Orgullosos miembros de TOP CoNNecT",
-      legal: "© 2026 NextGol. Todos los derechos reservados.",
-    },
-  },
-  en: {
-    meta: {
-      title: "NextGol — Your tech team | Software, AI & Automation",
-      description:
-        "We build, automate, and integrate the software your business needs to grow. Senior, bilingual engineering focused on results. Book a free call.",
-      ogAlt: "NextGol — your tech team: software, AI, and automation.",
-    },
-    nav: { services: "Services", who: "Who it's for", process: "Process", faq: "FAQ", cta: "Book a call" },
-    hero: {
-      eyebrow: "Software · AI · Automation",
-      badge: "Members of TOP CoNNecT",
-      pre: "Your ",
-      accent: "tech team",
-      post: ", without the hire",
-      subhead:
-        "We build, automate, and integrate the software your business needs to grow — so you can focus on your business, not the tech.",
-      ctaPrimary: "Book a free call",
-      ctaSecondary: "Chat on WhatsApp",
-      micro: ["Free diagnosis", "Senior engineering", "Bilingual", "AWS"],
-    },
-    trust: "Built with world-class technology",
-    services: {
-      eyebrow: "What we do",
-      title: "One partner for all your tech",
-      subtitle:
-        "From your website to your full product. Start with what you need today and grow with us.",
-      s1: {
-        title: "AI Automation",
-        desc: "Customer support, scheduling, lead follow-up, and reporting. Less manual work, more time to sell.",
-        benefit: "Up to 40–60% lower costs",
-      },
-      s2: { title: "Custom Software & Cloud", desc: "Web & mobile apps and AWS infrastructure, end to end." },
-      s3: { title: "Integrations & Payments", desc: "We connect your tools and payment gateways." },
-      s4: { title: "AI Team Training", desc: "We train your team to multiply their productivity." },
-      s5: { title: "Tech team for startups", desc: "Dedicated engineers or your full product, turnkey." },
-    },
-    who: {
-      eyebrow: "Who it's for",
-      title: "We get you, wherever you are",
-      laneA: {
-        tag: "Business owners · SMB",
-        title: "You run a business that wants to grow",
-        text: "You lose hours on manual work, your site doesn't convert, or your tools don't talk to each other. We help you digitize, automate, and sell more.",
-        bullets: ["Converting website", "AI automation", "Integrations", "Bilingual support"],
-      },
-      laneB: {
-        tag: "Founders · Startups",
-        title: "You have an idea or product, but no tech team",
-        text: "You don't want to hire or manage engineers. We build your product or give you a dedicated team, so you can focus on growing.",
-        bullets: ["Product (MVP → scale)", "Dedicated team", "Tech leadership", "AWS & best practices"],
-      },
-    },
-    diff: {
-      eyebrow: "Why NextGol",
-      title: "Not a random freelancer, not a cold agency",
-      d1: { title: "Real senior engineering", text: "Backend, cloud, data, and AI — not just pretty pages." },
-      d2: { title: "Focused on your business", text: "We measure in results: lower costs, more sales, less manual work." },
-      d3: { title: "Close & bilingual", text: "We speak your language (EN/ES) and we're part of your community." },
-      d4: { title: "Flexible & tailored", text: "From a single project to your entire tech department." },
-    },
-    process: {
-      eyebrow: "How we work",
-      title: "Getting started is simple",
-      steps: [
-        { n: "1", t: "Diagnosis call", d: "Tell us about your business and your challenge. Free, no strings attached." },
-        { n: "2", t: "Tailored proposal", d: "We deliver a clear plan with scope, timeline, and price." },
-        { n: "3", t: "We build & grow", d: "We execute, deliver, and stick around to help you scale." },
-      ],
-    },
-    faq: {
-      eyebrow: "Frequently asked questions",
-      title: "What people usually ask us",
-      subtitle: "Clear answers before the call. Still have a question? Just reach out.",
-      items: [
-        {
-          q: "What does NextGol actually do?",
-          a: "We're your external tech team. We build custom software, automate processes with AI, integrate your tools and payment gateways, and set up cloud infrastructure (AWS) — end to end, so you can focus on your business.",
-        },
-        {
-          q: "How much does it cost to work with you?",
-          a: "Every project is quoted to fit its scope. We work on one-off projects and also on monthly plans (retainers) for ongoing support or a dedicated team. On the free diagnosis call we define clear scope, timeline, and price.",
-        },
-        {
-          q: "Do you work in English and Spanish?",
-          a: "Yes, we're fully bilingual (EN/ES). We speak your language and your customers' — no communication barriers, no technical misunderstandings.",
-        },
-        {
-          q: "Do I need technical knowledge to work with you?",
-          a: "Not at all. You bring the business knowledge and we translate it into technology. We explain everything in plain language and measure success in results: lower costs, more sales, and less manual work.",
-        },
-        {
-          q: "How can AI actually help my business?",
-          a: "AI automates repetitive tasks: customer support, scheduling, lead follow-up, and reporting. Businesses that adopt it typically cut operating costs by 40–60% and handle far more volume without hiring proportionally.",
-        },
-        {
-          q: "How do we get started?",
-          a: "Book a free 15-minute diagnosis call. We understand your challenge, give you a tailored proposal, and if we move forward, we build and stick around to help you scale. No strings attached.",
-        },
-      ],
-    },
-    ctaNote: "Free · 15 min · No commitment",
-    social: {
-      eyebrow: "What they say",
-      title: "Businesses that already made the leap",
-      subtitle: "Real results from the people who trusted us.",
-    },
-    final: {
-      title: "Ready for your next goal?",
-      subtitle:
-        "Book a free 15-minute call. We'll tell you exactly how tech can grow your business.",
-      ctaPrimary: "Book a free call",
-      ctaSecondary: "Message us on WhatsApp",
-    },
-    footer: {
-      tagline: "Your tech team. Software, AI, and automation to grow.",
-      navTitle: "Navigation",
-      contactTitle: "Contact",
-      community: "Proud members of TOP CoNNecT",
-      legal: "© 2026 NextGol. All rights reserved.",
-    },
-  },
+  es,
+  en: { ...es, ...enOverrides },
 };

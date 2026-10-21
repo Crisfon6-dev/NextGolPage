@@ -1,5 +1,5 @@
 ---
-import { LINKS, type Lang } from "../config";
+import { CONFIG, LINKS, type Lang } from "../config";
 import { copy } from "../content/copy";
 import Icon from "./Icon.astro";
 
@@ -9,6 +9,9 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = copy[lang];
+
+// Email stays obfuscated (base64 → mailto in interactions.ts), same as the footer.
+const emailB64 = Buffer.from(CONFIG.EMAIL).toString("base64");
 ---
 
 <section class="ng-section">
@@ -17,19 +20,30 @@ const t = copy[lang];
       <div aria-hidden="true" style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:340px;height:340px;background:radial-gradient(circle,rgba(0,229,160,.22),transparent 68%);animation:ngGlow 7s ease-in-out infinite;pointer-events:none;"></div>
       <h2 style="position:relative;font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.4vw,50px);margin:0 0 14px;letter-spacing:-.02em;">{t.final.title}</h2>
       <p style="position:relative;margin:0 auto 30px;max-width:520px;color:#C4CCD6;font-size:clamp(15px,1.7vw,18px);line-height:1.6;">{t.final.subtitle}</p>
-      <div style="position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-        <a href={LINKS.booking} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-primary ng-btn-cta">
-          <Icon name="calendar" size={18} stroke={2.2} />
+      <div data-cta-row style="position:relative;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+        <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-primary ng-btn-cta" data-cta="whatsapp" data-cta-location="final">
+          <Icon name="whatsapp" size={18} stroke={2} />
           <span>{t.final.ctaPrimary}</span>
         </a>
-        <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-ghost ng-btn-cta">
-          <Icon name="whatsapp" size={18} stroke={2} />
-          <span>{t.final.ctaSecondary}</span>
+      </div>
+      <!-- secondary channels, in order: agenda → LinkedIn (if set) → correo -->
+      <div data-cta-row style="position:relative;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px;">
+        <a href={LINKS.booking} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-ghost ng-btn-sm" data-cta="booking" data-cta-location="final">
+          <Icon name="calendar" size={16} stroke={2.2} />
+          <span>{t.final.ctaBooking}</span>
+        </a>
+        {LINKS.linkedin && (
+          <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-ghost ng-btn-sm" data-cta="linkedin" data-cta-location="final">
+            <span>{t.final.ctaLinkedin}</span>
+          </a>
+        )}
+        <a href="#" class="ng-btn ng-btn-ghost ng-btn-sm" data-email-b64={emailB64} rel="nofollow" data-cta="email" data-cta-location="final">
+          <span>{t.final.ctaEmail}</span>
         </a>
       </div>
       <div class="ng-cta-note" style="position:relative;justify-content:center;margin-top:18px;">
         <Icon name="check" size={14} stroke={2.6} />
-        <span>{t.ctaNote}</span>
+        <span>{t.final.note}</span>
       </div>
     </div>
   </div>

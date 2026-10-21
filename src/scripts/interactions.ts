@@ -1,8 +1,10 @@
 /**
- * Client-side enhancements. Language is now server-rendered per route (`/` ES,
- * `/en/` EN), so there is NO i18n swap here — only progressive UX niceties:
- * mobile menu, 3D tilt, and scroll reveals. All guarded by reduced-motion.
+ * Client-side enhancements: UTM source → WhatsApp message, CTA click tracking,
+ * mobile menu, 3D tilt, scroll reveals and the sticky bar. Motion is guarded by
+ * reduced-motion. Copy is server-rendered (Spanish), so there is no i18n swap.
  */
+import { normalizeSource, waLink, type Source } from "../config";
+
 const reduceMotion =
   typeof window.matchMedia === "function" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -114,6 +116,61 @@ function initEmailLinks(): void {
   });
 }
 
+/* ---------------- Source attribution (UTM → WhatsApp message) ---------------- */
+
+const SRC_KEY = "ng_src";
+
+/** utm_source (URL) → sessionStorage → "direct". The URL wins and is persisted. */
+function resolveSource(): Source {
+  let raw: string | null = null;
+  try {
+    raw = new URLSearchParams(window.location.search).get("utm_source");
+  } catch {
+    /* ignore */
+  }
+  try {
+    if (raw) {
+      sessionStorage.setItem(SRC_KEY, normalizeSource(raw));
+    } else {
+      raw = sessionStorage.getItem(SRC_KEY);
+    }
+  } catch {
+    /* storage blocked (private mode) — fall through with whatever we have */
+  }
+  return normalizeSource(raw);
+}
+
+const source = resolveSource();
+
+/** Every WhatsApp CTA carries the source inside the pre-filled message. */
+function initWhatsAppLinks(): void {
+  const href = waLink(source);
+  document.querySelectorAll<HTMLAnchorElement>('[data-cta="whatsapp"]').forEach((a) => {
+    a.href = href;
+  });
+}
+
+/* ---------------- CTA click tracking ---------------- */
+
+/** Thin analytics wrapper: a blocked/missing Umami must never break a CTA. */
+function track(name: string, data: Record<string, string>): void {
+  try {
+    (window as any).umami?.track(name, data);
+  } catch {
+    /* analytics blocked — ignore */
+  }
+}
+
+/** One delegated listener; never preventDefault (links open in a new tab). */
+function initCtaTracking(): void {
+  document.addEventListener("click", (e) => {
+    const target = e.target as Element | null;
+    const el = target?.closest?.<HTMLElement>("[data-cta]");
+    if (!el) return;
+    track(`cta_${el.dataset.cta}`, { location: el.dataset.ctaLocation ?? "unknown", source });
+  });
+}
+
 /* ---------------- Wire up ---------------- */
 
 function init(): void {
@@ -129,6 +186,8 @@ function init(): void {
   initReveals();
   initConvBar();
   initEmailLinks();
+  initWhatsAppLinks();
+  initCtaTracking();
 }
 
 if (document.readyState === "loading") {

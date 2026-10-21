@@ -1,0 +1,51 @@
+---
+import { LINKS, type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+
+<section id="mapa" class="ng-section">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.offer.eyebrow}</span></div>
+      <h2 class="ng-h2" style="margin-bottom:14px;">{t.offer.title}</h2>
+      <p style="margin:0;color:#A7B0BE;font-size:17px;line-height:1.6;">{t.offer.text}</p>
+    </div>
+
+    <div class="reveal" style="position:relative;overflow:hidden;background:linear-gradient(160deg,#12241F 0%,#11161F 55%);border:1px solid rgba(0,229,160,.28);border-radius:20px;padding:clamp(24px,4vw,40px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(0,229,160,.12);">
+      <div aria-hidden="true" style="position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(0,229,160,.22),transparent 70%);animation:ngGlow 6s ease-in-out infinite;pointer-events:none;"></div>
+
+      <ul style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:0;padding:0;list-style:none;">
+        {t.offer.items.map((item) => (
+          <li style="background:rgba(10,14,20,.5);border:1px solid #1A212C;border-radius:14px;padding:22px 20px;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(0,229,160,.12);color:#00E5A0;">
+              <Icon name="check" size={18} stroke={2.4} />
+            </span>
+            <h3 style="font-family:var(--font-display);font-weight:600;font-size:18px;margin:14px 0 6px;">{item.t}</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.6;color:#A7B0BE;">{item.d}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div style="position:relative;margin-top:28px;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.6;color:#C4CCD6;">
+        <p style="margin:0;font-weight:600;color:#F5F7FA;">{t.offer.closing}</p>
+        <p style="margin:0;">{t.offer.scarcity}</p>
+        <p style="margin:0;color:#3DF0B8;">{t.offer.topconnect}</p>
+      </div>
+
+      <div data-cta-row style="position:relative;margin-top:28px;">
+        <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" class="ng-btn ng-btn-primary" data-cta="whatsapp" data-cta-location="offer">
+          <Icon name="whatsapp" size={18} stroke={2} />
+          <span>{t.offer.cta}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

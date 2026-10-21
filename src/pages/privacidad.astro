@@ -1,0 +1,124 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { CONFIG, LINKS } from "../config";
+
+// Same obfuscation as Footer: the address only exists as base64 until JS assembles the mailto.
+const emailB64 = Buffer.from(CONFIG.EMAIL).toString("base64");
+---
+
+<Base
+  lang="es"
+  path="/privacidad/"
+  title="Política de privacidad | NextGol"
+  description="Qué datos recoge NextGol, para qué los usa, con quién los comparte y cómo puedes pedir acceso, corrección o borrado."
+>
+  <Nav lang="es" />
+  <main id="main-content" class="ng-section" style="border-bottom:0;">
+    <div class="ng-container">
+      <article class="ng-legal">
+        <h1 class="ng-h2">Política de privacidad</h1>
+        <p class="ng-legal-updated">Última actualización: 21 de octubre de 2026</p>
+
+        <h2>Quiénes somos</h2>
+        <p>
+          NextGol es una consultora de software e innovación con IA. Puedes escribirnos por
+          <a href="#" data-email-b64={emailB64} rel="nofollow">correo</a> o por
+          <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-cta-location="footer">WhatsApp</a>.
+        </p>
+
+        <h2>Qué datos recogemos</h2>
+        <p>
+          Medimos las visitas con Umami, una analítica sin cookies. Guarda las páginas que se ven, de dónde llegó la
+          visita (por ejemplo, el UTM de un link), tu país aproximado y el tipo de dispositivo. No te identifica.
+        </p>
+        <p>
+          Además, guardamos lo que tú nos envías por WhatsApp, por Calendly o por correo: tu nombre, el de tu
+          negocio y lo que nos cuentes de tu proceso.
+        </p>
+
+        <h2>Para qué los usamos</h2>
+        <ul>
+          <li>Responderte.</li>
+          <li>Preparar tu Mapa.</li>
+          <li>Mejorar el sitio.</li>
+        </ul>
+
+        <h2>Con quién se comparten</h2>
+        <p>Usamos estos proveedores para operar el sitio y atenderte:</p>
+        <ul>
+          <li>Vercel, para el hosting.</li>
+          <li>Umami, para la analítica.</li>
+          <li>Calendly, para la agenda.</li>
+          <li>Meta (WhatsApp), para la mensajería.</li>
+          <li>Un proveedor de correo.</li>
+        </ul>
+        <p>No vendemos tus datos.</p>
+
+        <h2>Cuánto tiempo los guardamos</h2>
+        <p>
+          Lo necesario para atender tu solicitud. Si quieres que los borremos antes, pídenoslo.
+        </p>
+
+        <h2>Tus derechos y cómo ejercerlos</h2>
+        <p>
+          Puedes pedirnos acceso a tus datos, que los corrijamos o que los borremos. Escríbenos por
+          <a href="#" data-email-b64={emailB64} rel="nofollow">correo</a> o por
+          <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-cta-location="footer">WhatsApp</a>
+          y lo resolvemos.
+        </p>
+
+        <h2>Cookies</h2>
+        <p>Este sitio no usa cookies propias ni de analítica.</p>
+
+        <h2>Cambios</h2>
+        <p>
+          Si cambiamos esta política, actualizaremos la fecha de arriba. Última actualización: 21 de octubre de 2026.
+        </p>
+      </article>
+    </div>
+  </main>
+  <Footer lang="es" />
+
+  <script>
+    import "../scripts/interactions";
+  </script>
+</Base>
+
+<style is:global>
+  .ng-legal {
+    max-width: 720px;
+  }
+  .ng-legal-updated {
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: #939caa;
+  }
+  .ng-legal h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 40px 0 10px;
+    color: #f5f7fa;
+  }
+  .ng-legal p,
+  .ng-legal li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #a7b0be;
+  }
+  .ng-legal p {
+    margin: 0 0 12px;
+  }
+  .ng-legal ul {
+    margin: 0 0 12px;
+    padding-left: 22px;
+  }
+  .ng-legal a {
+    color: #00e5a0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

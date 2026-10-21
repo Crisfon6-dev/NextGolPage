@@ -1,0 +1,41 @@
+---
+/**
+ * Three use cases framed as POSSIBILITY ("lo que haría un agente de IA en tu
+ * negocio"), never as client history: no clients, no figures, no past tense.
+ */
+import { type Lang } from "../config";
+import { copy } from "../content/copy";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+
+// One icon per use case, same order as copy.useCases.items.
+const icons = ["calendar", "chart", "message"] as const;
+---
+
+<section id="casos" class="ng-section ng-section--deep">
+  <div class="ng-container">
+    <div class="reveal ng-section-head">
+      <div class="ng-eyebrow"><span class="ng-eyebrow-line"></span><span>{t.useCases.eyebrow}</span></div>
+      <h2 class="ng-h2" style="margin-bottom:14px;">{t.useCases.title}</h2>
+      <p style="margin:0;color:#A7B0BE;font-size:17px;line-height:1.6;">{t.useCases.subtitle}</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+      {t.useCases.items.slice(0, 3).map((item, i) => (
+        <article class="reveal ng-card" style="padding:28px 24px;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:rgba(0,229,160,.1);color:#00E5A0;">
+            <Icon name={icons[i] ?? "check"} size={22} stroke={1.8} />
+          </span>
+          <h3 style="font-family:var(--font-display);font-weight:600;font-size:19px;margin:18px 0 8px;">{item.title}</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#A7B0BE;">{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

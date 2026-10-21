@@ -10,15 +10,17 @@ interface Props {
 const { lang } = Astro.props;
 const t = copy[lang];
 
+// "/#id" works both on the landing and on secondary pages (e.g. /privacidad).
 const links = [
-  { href: "#servicios", label: t.nav.services },
-  { href: "#paraquien", label: t.nav.who },
-  { href: "#proceso", label: t.nav.process },
-  { href: "#faq", label: t.nav.faq },
+  { href: "/#como-funciona", label: t.nav.process },
+  { href: "/#mapa", label: t.nav.offer },
+  { href: "/#casos", label: t.nav.cases },
+  { href: "/#fundador", label: t.nav.founder },
+  { href: "/#faq", label: t.nav.faq },
 ];
 
-const homeLabel = lang === "es" ? "NextGol — inicio" : "NextGol — home";
-const menuLabel = lang === "es" ? "Menú" : "Menu";
+const homeLabel = "NextGol — inicio";
+const menuLabel = "Menú";
 ---
 
 <nav
@@ -26,27 +28,27 @@ const menuLabel = lang === "es" ? "Menú" : "Menu";
   style="position:sticky;top:0;z-index:50;background:rgba(10,14,20,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #161C25;"
 >
   <div style="max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;">
-    <a href="#top" class="ng-logo" aria-label={homeLabel} style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#F5F7FA;">
+    <a href="/" class="ng-logo" aria-label={homeLabel} style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#F5F7FA;">
       <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#00E5A0,#3B82F6);color:#06120D;">
         <Icon name="logo" size={17} stroke={2.4} />
       </span>
       <span style="font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;">Next<span style="color:#00E5A0;">Gol</span></span>
     </a>
 
-    <div data-nav-desktop style="display:flex;align-items:center;gap:28px;">
+    <div data-nav-desktop style="display:flex;align-items:center;gap:22px;">
       {links.map((l) => <a href={l.href} class="ng-navlink">{l.label}</a>)}
     </div>
 
     <div style="display:flex;align-items:center;gap:12px;">
-      <div class="ng-lang-toggle" role="group" aria-label="Language">
-        <a href="/" class="ng-lang-seg" data-lang-seg="es" hreflang="es" aria-label="Español" aria-current={lang === "es" ? "true" : undefined}>ES</a>
-        <a href="/en/" class="ng-lang-seg" data-lang-seg="en" hreflang="en" aria-label="English" aria-current={lang === "en" ? "true" : undefined}>EN</a>
-      </div>
+      <!-- Booking button: desktop only (the sticky bar covers the CTA on phones) -->
       <a
         href={LINKS.booking}
         target="_blank"
         rel="noopener noreferrer"
         class="ng-btn ng-btn-primary ng-btn-sm"
+        data-nav-cta
+        data-cta="booking"
+        data-cta-location="nav"
       >{t.nav.cta}</a>
       <button
         type="button"
