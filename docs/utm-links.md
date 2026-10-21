@@ -30,4 +30,4 @@ Propiedades de cada evento:
 - `location`: `nav`, `hero`, `offer`, `sticky`, `fab`, `final`, `footer` o `founder` (dónde estaba el botón).
 - `source`: `topconnect`, `linkedin`, `email` o `direct`.
 
-Las visitas por fuente (UTM) se ven gratis en Vercel → Analytics. Estos eventos de clic ya se envían, pero Vercel solo los registra en el plan Pro.
+En el plan gratis, Vercel → Analytics muestra visitas, páginas, país, dispositivo y sitio de origen (referrer). Las visitas por UTM requieren el add-on Web Analytics Plus, y los eventos de clic el plan Pro. La fuente confiable es el texto precargado de WhatsApp: cada mensaje dice de dónde viene.
