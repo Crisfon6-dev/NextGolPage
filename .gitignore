@@ -35,3 +35,8 @@ openspec/
 
 # macOS
 .DS_Store
+
+# Local-only: audit with internal strategy, and private lint names (repo is public)
+docs/audit-2026-10.md
+docs/audit-2026-10/
+scripts/lint-copy.private.json
