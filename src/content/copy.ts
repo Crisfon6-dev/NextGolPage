@@ -119,7 +119,7 @@ const es: Copy = {
   hero: {
     eyebrow: "Consultora de software e innovación con IA",
     badge: "Miembro de TopConnect",
-    pre: "Agentes de IA que hacen el trabajo de tu negocio. ",
+    pre: "Agentes de IA que hacen procesos completos en tu negocio. ",
     accent: "Tú apruebas lo importante.",
     post: "",
     subhead:
