@@ -8,14 +8,8 @@ export default defineConfig({
   site: 'https://nextgol.com',
   integrations: [
     sitemap({
-      // Emit hreflang alternates so search engines link the ES/EN variants.
-      i18n: {
-        defaultLocale: 'es',
-        locales: {
-          es: 'es',
-          en: 'en',
-        },
-      },
+      // Phase 1 is Spanish-only: /en/ is redirected (vercel.json) and kept out of the sitemap.
+      filter: (page) => !page.includes('/en/'),
     }),
   ],
   vite: {

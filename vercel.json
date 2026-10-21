@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/en", "destination": "/", "permanent": false },
+    { "source": "/en/:path*", "destination": "/", "permanent": false }
+  ]
+}
